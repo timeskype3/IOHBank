@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 For Nodejs
 https://nodejs.org/en/
 
@@ -17,3 +18,24 @@ Command
 npm install
 npm run serve
 
+=======
+For Nodejs
+https://nodejs.org/en/
+
+Visual studio code
+https://code.visualstudio.com/
+
+Git
+https://git-scm.com/download/win
+
+Git-Fork
+https://git-fork.com/
+
+Ant Design for vue 
+https://vue.ant.design/docs/vue/introduce/
+
+Command
+npm install
+npm run serve
+
+>>>>>>> b35a559ae924dd9eea016c2b72295256b2e045a0
