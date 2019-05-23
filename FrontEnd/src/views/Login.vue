@@ -1,6 +1,5 @@
 <template>
   <div class="login">
-<<<<<<< HEAD
     <a-layout id="components-layout">
       <a-layout-header>
           <img alt="Vue logo" src="../assets/logo.png" />
@@ -12,7 +11,6 @@
           Jirayu coryright
           </a-layout-footer>
     </a-layout>
-=======
     <h1>This is an about page</h1>
     <a-form layout="inline" :form="form"  @submit="handleSubmit">
     <a-form-item
@@ -62,7 +60,6 @@
       </a-button>
     </a-form-item>
   </a-form>
->>>>>>> parent of 82f7206... Split
   </div>
 </template>
 
@@ -104,7 +101,6 @@ export default {
     },
   },
 };
-<<<<<<< HEAD
 </script>
 
 <style>
@@ -141,6 +137,4 @@ export default {
 
 </style>
 
-=======
 </script>
->>>>>>> parent of 82f7206... Split
