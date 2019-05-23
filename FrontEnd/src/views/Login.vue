@@ -111,7 +111,7 @@ export default {
     min-height: 220px;
 }
 #components-layout .ant-layout-footer {
-  background: #7dbcea;
+  background: #0d9b09;
   color: #fff;
 }
 #components-layout .ant-layout-footer {
