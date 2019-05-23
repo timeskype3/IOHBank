@@ -8,7 +8,7 @@
          <FormLogin/>
           </a-layout-content>
       <a-layout-footer>
-          Footer
+          Jirayu coryright
           </a-layout-footer>
     </a-layout>
   </div>
@@ -49,7 +49,6 @@ export default {
   color: #fff;
   min-height: 120px;
   line-height: 120px;
-  min-width: 300px;
 }
 #components-layout > .ant-layout {
   margin-bottom: 40px;
