@@ -1,5 +1,5 @@
 <template>
   <div class="about">
-    <h1>supanai wa</h1>
+    <h1>Mr.Jirayu Janraluek</h1>
   </div>
 </template>
