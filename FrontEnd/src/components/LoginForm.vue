@@ -80,12 +80,12 @@
      <a
         class="login-form-forgot"
         href=""
-        
       >
         Forgot password
       </a>
     </a-col>
   </a-form>
+  
           </a-layout-content>
       <a-layout-footer>
           InOurHeartBank coryright
@@ -144,7 +144,7 @@ export default {
             if(res.data.user.length === 1) {
                 localStorage.setItem('user', this.user)
                 localStorage.setItem('password', this.password)
-                this.$router.push('/profile')
+                this.$router.push('/dashboard')
             } else {
                 console.log('not found')
             }
@@ -178,6 +178,7 @@ export default {
 }
 #components-layout .ant-layout-content {
  margin: 40px 0 0;
+  min-height: 300px;
 }
 #components-layout > .ant-layout {
   margin-bottom: 40px;

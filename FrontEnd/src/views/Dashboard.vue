@@ -49,6 +49,12 @@
         </a-breadcrumb>
         <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">
           Bill is a cat.
+          <a-button
+        type="primary"
+        @click="logout()" 
+        >
+        LogOut
+      </a-button>
         </div>
       </a-layout-content>
       <a-layout-footer style="text-align: center">
@@ -64,7 +70,16 @@ export default {
       collapsed: false,
     }
   },
+  methods:{
+      logout() {
+                localStorage.removeItem('user', this.user)
+                localStorage.removeItem('password', this.password)
+                this.$router.push('/login')
+        }
+    }
 }
+
+
 </script>
 
 <style>

@@ -47,8 +47,8 @@ export default new Router({
         import("./views/Login.vue")
     },
     {
-      path: '/profile',
-      component: () => import('@/views/Profile'),
+      path: '/dashboard',
+      component: () => import('@/views/Dashboard.vue'),
       beforeEnter: checkAuthen
     }
   ]

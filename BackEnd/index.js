@@ -54,4 +54,4 @@ app.post('/register', (req, res) => {
     */
 })
 
-app.listen(3000,()=>console.log('Love you 3000'))
+app.listen(3000,()=>console.log('Connected to port 3000'))
