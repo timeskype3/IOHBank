@@ -5,7 +5,7 @@
           <img alt="Vue logo" src="../assets/logo.png" />
           </a-layout-header>
       <a-layout-content>
-         <h1>Login IOH</h1>
+         <h1>Time Jirayu</h1>
     <a-form  :form="form"  @submit="handleSubmit" >
     <a-form-item
          :label-col="{ span: 4  }"
