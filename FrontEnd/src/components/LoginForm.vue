@@ -5,7 +5,7 @@
         <img alt="Vue logo" src="../assets/logo.png" />
         </a-layout-header>
       <a-layout-content>
-        <h1>LogIn</h1>
+        <h1>Login</h1>
     <a-form  :form="form"  @submit="handleSubmit" >
     <a-form-item
          :label-col="{ span: 4  }"
@@ -158,11 +158,11 @@ export default {
                 this.showsuc=true
                 localStorage.setItem("token", res.data.token)
                 setTimeout(()=>this.$router.push('/dashboard'),1200)
-            } else {
-                   this.showwrong=true
-                   
             }
-        })   
+        }).catch((e) => {
+          e.response
+           this.showwrong=true
+          }) 
     },
     register(){
       this.$router.push('/register')
