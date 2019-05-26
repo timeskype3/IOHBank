@@ -55,7 +55,7 @@ app.post('/login', (req,res)=> {
                 id: results[0].ClientID,
                 name: [results[0].FName, results[0].LName].join(' '),
                 email: results[0].Email,
-            },'secretkey',(err,token)=>{
+            },'CPE231',{expiresIn:'15m'},(err,token)=>{
                 res.json({
                     token
                 });
@@ -83,7 +83,7 @@ function verifyToken(req,res,next){
         const bearerToken = bearer[1];
 
         /* verify */
-        jwt.verify(bearerToken, 'secretkey', (err, authData)=>{
+        jwt.verify(bearerToken, 'CPE231', (err, authData)=>{
             if(err){
                 res.sendStatus(403);
             }else{

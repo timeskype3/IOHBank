@@ -23,6 +23,22 @@ const checkAuthen = (to, from, next) => {
   })
 }
 
+const checkLogin = (to, from, next) => {
+  console.log('checklogin')
+  axios.get('//localhost:3000/auth', {
+    headers: {
+      authorization: 'Bearer ' + localStorage.getItem('token')
+    }
+  })
+  .then(({ status }) => {
+    if(status === 200) {
+      next('/dashboard')
+    }
+  }).catch(() => {
+    next()
+  })
+}
+
 export default new Router({
   mode: "history",
   base: process.env.BASE_URL,
@@ -30,20 +46,24 @@ export default new Router({
     {
       path: "/",
       component: Unauth,
+      beforeEnter: checkLogin,
       children: [
         {
           path: '',
-          component: Home
+          component: Home,
+
         },
         {
           path: "/login",
           name: "login",
+
           component: () => 
             import("./views/unauthenticated/Login.vue")
         },
         {
           path: "/register",
           name: "register",
+     
           // route level code-splitting
           // this generates a separate chunk (about.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
@@ -58,11 +78,11 @@ export default new Router({
       beforeEnter: checkAuthen,
       children: [
         {
-          path: '1',
-          component: () => import('@/views/authenticated/1.vue')
+          path: '2',
+          component: () => import('@/views/authenticated/Transection.vue')
         },
         {
-          path: '2',
+          path: '3',
           component: () => import('@/views/authenticated/2.vue')
         },
         {

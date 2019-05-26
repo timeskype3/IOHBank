@@ -18,9 +18,10 @@
           <a-menu-item key="4">Bill</a-menu-item>
           <a-menu-item key="5">Alex</a-menu-item>
         </a-sub-menu>
-        <a-menu-item key="1">
+        <a-menu-item key="1"
+            @click="$router.push('/register')" >
           <a-icon type="pie-chart" />
-          <span>Option 1</span>
+          <span>Transection</span>
         </a-menu-item>
         <a-menu-item key="2">
           <a-icon type="desktop" />
