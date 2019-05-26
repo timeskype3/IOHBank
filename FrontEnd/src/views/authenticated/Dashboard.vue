@@ -40,12 +40,22 @@
       </a-menu>
     </a-layout-sider>
     <a-layout>
-      <a-layout-header style="background: #fff; padding: 0" />
+      <a-layout-header style="background: #205072; text-align: right ">
+         <h style="margin-right: 10px;
+                  color:#fff">
+           {{ name }} 's Account
+          </h>
+        <a-button
+         @click="logout()"
+         type="danger">
+          logout
+        </a-button>
+        </a-layout-header>
       <a-layout-content style="margin: 0 16px">
         <router-view />
       </a-layout-content>
       <a-layout-footer style="text-align: center">
-        Ant Design ©2018 Created by Ant UED
+        InOurHeartBank ©2019
       </a-layout-footer>
     </a-layout>
   </a-layout>
@@ -62,8 +72,7 @@ export default {
   },
   methods:{
       logout() {
-                localStorage.removeItem('user', this.user)
-                localStorage.removeItem('password', this.password)
+                localStorage.removeItem("token")
                 this.$router.push('/login')
         }
     },
@@ -85,9 +94,9 @@ export default {
 
 }
 #components-layout-demo-side .username{
-  text-align: left;
-   color: #15e67d;
-   padding: 10px;
+  text-align: center;
+   color: #15bce6;
+   padding: 20px;
    
 
 }

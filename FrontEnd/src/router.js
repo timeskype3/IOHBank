@@ -54,20 +54,20 @@ export default new Router({
     },
     {
       path: '/dashboard',
-      component: () => import('@/views/Dashboard.vue'),
+      component: () => import('@/views/authenticated/Dashboard.vue'),
       beforeEnter: checkAuthen,
       children: [
         {
           path: '1',
-          component: () => import('@/views/1.vue')
+          component: () => import('@/views/authenticated/1.vue')
         },
         {
           path: '2',
-          component: () => import('@/views/2.vue')
+          component: () => import('@/views/authenticated/2.vue')
         },
         {
           path: 'user/:user',
-          component: () => import('@/views/User.vue')
+          component: () => import('@/views/authenticated/User.vue')
         }
       ]
     }
