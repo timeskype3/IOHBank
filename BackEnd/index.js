@@ -50,15 +50,19 @@ app.post('/login', (req,res)=> {
         req.body.user,
         req.body.password
     ], (err, results) => {
-        jwt.sign({
-            id: results[0].ClientID,
-            name: [results[0].FName, results[0].LName].join(' '),
-            email: results[0].Email,
-        },'secretkey',(err,token)=>{
-            res.json({
-                token
+        if(!err&&results.length===1){
+            jwt.sign({
+                id: results[0].ClientID,
+                name: [results[0].FName, results[0].LName].join(' '),
+                email: results[0].Email,
+            },'secretkey',(err,token)=>{
+                res.json({
+                    token
+                });
             });
-        });
+        }else{
+            res.sendStatus(403)
+        }
     })
 });
 
