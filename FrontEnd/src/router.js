@@ -1,19 +1,16 @@
 import Vue from "vue";
 import Router from "vue-router";
-import axios from 'axios'
+import api from '@/utils/api';
 import Unauth from "./views/unauthenticated/index.vue";
 import Home from "./views/unauthenticated/Home.vue";
 
 Vue.use(Router);
 
 
+
 const checkAuthen = (to, from, next) => {
   console.log('check')
-  axios.get('//localhost:3000/auth', {
-    headers: {
-      authorization: 'Bearer ' + localStorage.getItem('token')
-    }
-  }).then(({ status }) => {
+  api().get("/auth").then(({ status }) => {
     if(status === 200) {
       console.log('router ok')
       next()
@@ -25,11 +22,7 @@ const checkAuthen = (to, from, next) => {
 
 const checkLogin = (to, from, next) => {
   console.log('checklogin')
-  axios.get('//localhost:3000/auth', {
-    headers: {
-      authorization: 'Bearer ' + localStorage.getItem('token')
-    }
-  })
+  api().get("/auth")
   .then(({ status }) => {
     if(status === 200) {
       next('/dashboard')
@@ -78,16 +71,16 @@ export default new Router({
       beforeEnter: checkAuthen,
       children: [
         {
-          path: '2',
-          component: () => import('@/views/authenticated/Transection.vue')
+          path: '/transfer',
+          component: () => import('@/views/authenticated/Transections/Transfer.vue')
         },
         {
-          path: '3',
-          component: () => import('@/views/authenticated/2.vue')
+          path: '/payment',
+          component: () => import('@/views/authenticated/Transections/Payment.vue')
         },
         {
-          path: 'user/:user',
-          component: () => import('@/views/authenticated/User.vue')
+          path: '/top-up',
+          component: () => import('@/views/authenticated/Transections/Top-Up.vue')
         }
       ]
     }

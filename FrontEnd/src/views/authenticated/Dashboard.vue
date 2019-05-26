@@ -10,27 +10,40 @@
          <span>{{ name }}</span>
         </div>
       <a-menu theme="dark" :defaultSelectedKeys="['1']" mode="inline" >
-               <a-sub-menu
-          key="sub1"
-        >
-          <span slot="title"><a-icon type="user" /><span>User</span></span>
-          <a-menu-item key="3">Tom</a-menu-item>
-          <a-menu-item key="4">Bill</a-menu-item>
-          <a-menu-item key="5">Alex</a-menu-item>
+        <a-menu-item key="1" >
+          <router-link to="">
+            <a-icon type="user" />
+            Account
+          </router-link>
+        </a-menu-item>
+          <a-sub-menu key="sub1" >
+          <span slot="title"><a-icon type="pie-chart" /><span>Transection</span></span>
+          <a-menu-item key="2">
+             <router-link to="/transfer">
+             <a-icon type="team"/>
+             Transfer
+              </router-link>
+             </a-menu-item>
+          <a-menu-item key="3">
+             <router-link to="/payment">
+            <a-icon type="bar-chart"/>
+            Payment
+             </router-link>
+            </a-menu-item>
+          <a-menu-item key="4">
+             <router-link to="/top-up">
+            <a-icon type="upload"/>
+            Top-Up
+             </router-link>
+            </a-menu-item>
         </a-sub-menu>
-        <a-menu-item key="1"
-            @click="$router.push('/register')" >
-          <a-icon type="pie-chart" />
-          <span>Transection</span>
+
+        <a-menu-item key="5">
+          <a-icon type="shop" />
+          <span>Promotion</span>
         </a-menu-item>
-        <a-menu-item key="2">
-          <a-icon type="desktop" />
-          <span>Option 2</span>
-        </a-menu-item>
-        <a-sub-menu
-          key="sub2"
-        >
-          <span slot="title"><a-icon type="team" /><span>Team</span></span>
+        <a-sub-menu key="sub2">
+          <span slot="title"><a-icon type="cloud-o" /><span>Setting</span></span>
           <a-menu-item key="6">Team 1</a-menu-item>
           <a-menu-item key="8">Team 2</a-menu-item>
         </a-sub-menu>
@@ -53,7 +66,7 @@
         </a-button>
         </a-layout-header>
       <a-layout-content style="margin: 0 16px">
-        <router-view />
+        <router-view/>
       </a-layout-content>
       <a-layout-footer style="text-align: center">
         InOurHeartBank ©2019
