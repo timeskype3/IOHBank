@@ -12,8 +12,8 @@
       <a-menu theme="dark" :defaultSelectedKeys="['1']" mode="inline" >
         <a-menu-item key="1" >
           <router-link to="">
-            <a-icon type="user" />
-            Account
+          <a-icon type="user" />
+             <span>Account</span>
           </router-link>
         </a-menu-item>
           <a-sub-menu key="sub1" >
@@ -43,7 +43,7 @@
           <span>Promotion</span>
         </a-menu-item>
         <a-sub-menu key="sub2">
-          <span slot="title"><a-icon type="cloud-o" /><span>Setting</span></span>
+          <span slot="title"><a-icon type="setting" /><span>Setting</span></span>
           <a-menu-item key="6">Team 1</a-menu-item>
           <a-menu-item key="8">Team 2</a-menu-item>
         </a-sub-menu>
@@ -55,6 +55,7 @@
     </a-layout-sider>
     <a-layout>
       <a-layout-header style="background: #205072; text-align: right ">
+        <span style="margin-right: 20px;color:#FFD700" > <a-switch :defaultChecked="false"/> Show Balance</span>
          <h style="margin-right: 10px;
                   color:#fff">
            {{ name }} 's Account
@@ -87,6 +88,7 @@ export default {
   methods:{
       logout() {
                 localStorage.removeItem("token")
+                this.$message.info('Logout Complete')
                 this.$router.push('/login')
         }
     },

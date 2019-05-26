@@ -4,17 +4,36 @@
         <a-breadcrumb-item>User</a-breadcrumb-item>
         <a-breadcrumb-item>Bill</a-breadcrumb-item>
         </a-breadcrumb>
-        <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">
-        Bill is a cat.
-        <a-button :loading="loading" @click="test()">
-            Test
-        </a-button>
-        <a-button
-            type="primary"
-            @click="logout()" 
-            >
-            LogOut
-        </a-button>
+        <div :style="{ 
+            padding: '24px', background: '#fff', minHeight: '360px'
+            }">
+           <a-steps :current="current">
+      <a-step v-for="item in steps" :key="item.title" :title="item.title" />
+        </a-steps>
+    
+    <div class="steps-content">{{steps[current].content}}</div>
+    <div class="steps-action">
+      <a-button
+        v-if="current < steps.length - 1"
+        type="primary" @click="next"
+      >
+        Next
+      </a-button>
+      <a-button
+        v-if="current == steps.length - 1"
+        type="primary"
+        @click="$message.success('Processing complete!')"
+      >
+        Done
+      </a-button>
+      <a-button
+        v-if="current>0"
+        style="margin-left: 8px"
+        @click="prev"
+      >
+        Previous
+      </a-button>
+    </div>
         </div>
     </div>
 </template>
@@ -23,20 +42,45 @@
 import api from '@/utils/api'
 
 export default {
-    data: () => ({
-        loading: false
-    }),
+    data() {
+      return {
+        current: 0,
+        steps: [{
+          title: 'Choose type of transfer',
+          content: 'First-content',
+        }, {
+          title: 'Tranferring',
+          content: 'Second-content',
+        }, {
+          title: 'Verify payment',
+          content: 'Last-content',
+        }],
+      }
+    },
     methods: {
-        test() {
-            this.loading = true
-            api.get('/auth').then(res => {
-                console.log(res)
-            }).catch(e => {
-                console.log(e)
-            }).finally(() => {
-                this.loading = false
-            })
-        }
-    }
+      next() {
+        this.current++
+      },
+      prev() {
+        this.current--
+      }
+    },
 }
 </script>
+
+<style scoped>
+  .steps-content {
+    margin-top: 20px;
+    border: 1px dashed #e9e9e9;
+    border-radius: 6px;
+    background-color: #fafafa;
+    min-height: 200px;
+    text-align: center;
+    padding-top: 80px;
+    margin-right: 10px;
+  }
+
+  .steps-action {
+    margin-top: 24px;
+  }
+</style>

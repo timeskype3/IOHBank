@@ -157,18 +157,26 @@ export default {
             if(res.data.token) {
                 this.showwrong=false
                 this.showsuc=true
+                this.$message.success('Login Complete !')
                 localStorage.setItem("token", res.data.token)
-                setTimeout(()=>this.$router.push('/dashboard'),1200)
+                setTimeout(()=>this.$router.push('/dashboard'),600)
             }
         }).catch((e) => {
           e.response
            this.showwrong=true
+           this.openNotification()
           }) 
     },
     register(){
       this.$router.push('/register')
     },
-    
+    openNotification () {
+        this.$notification.open({
+          message: 'Incorrect Username or Password',
+          description: 'Please check you username or password. It not depend on sensitive case or have no this ID.',
+          icon: <a-icon type="frown" style="color: #FF0033	" />,
+        });
+      },
   },
 };
 </script>
