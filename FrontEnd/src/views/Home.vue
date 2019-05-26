@@ -10,7 +10,6 @@
 import CHome from "@/components/CHome.vue";
 
 export default {
-  name: "home",
   components: {
     CHome
   }

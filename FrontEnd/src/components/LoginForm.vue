@@ -14,6 +14,14 @@
          :help="userNameError() || ''"
      
     >
+    <a-alert  v-if="showwrong"
+              message="Username or Password incorrect." 
+              type="error" 
+              banner />
+   <a-alert   v-if="showsuc"
+              message="Login successful."
+              type="success"
+              banner />
       <a-input
         v-model="user"
         v-decorator="[
@@ -102,13 +110,16 @@ function hasErrors (fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 export default {
-    name: "LoginForm",
+    
   data () {
+
     return {
       hasErrors,
       user: '',
       password: '',
       form: this.$form.createForm(this),
+      showwrong: false,
+      showsuc: false
     };
   },
   mounted () {
@@ -142,11 +153,14 @@ export default {
             password: this.password
         }).then(res => {
             if(res.data.user.length === 1) {
+                this.showwrong=false
+                this.showsuc=true
                 localStorage.setItem('user', this.user)
                 localStorage.setItem('password', this.password)
-                this.$router.push('/dashboard')
+                setTimeout(()=>this.$router.push('/dashboard'),1200)
             } else {
-                console.log('not found')
+                   this.showwrong=true
+                   console.log('not found')
             }
         })   
     },
