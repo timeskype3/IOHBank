@@ -187,9 +187,12 @@ export default {
 }
 #components-layout .ant-layout-header{
   min-height: 220px;
+  background: rgb(47,39,180);
+background: linear-gradient(90deg, rgba(47,39,180,1) 0%, rgba(49,49,194,1) 0%, rgba(0,212,255,1) 100%);
 }
 #components-layout .ant-layout-footer {
-  background: #0d9b09;
+  background: rgb(47,39,180);
+background: linear-gradient(63deg, rgba(47,39,180,1) 0%, rgba(215,9,199,1) 0%, rgba(0,255,76,1) 0%, rgba(0,212,255,1) 100%);
   color: #fff;
 }
 #components-layout .ant-layout-footer {
@@ -201,8 +204,9 @@ export default {
   line-height: 20px;
 }
 #components-layout .ant-layout-content {
- margin: 40px 0 0;
-  min-height: 300px;
+  margin: 20px 0 0;
+  min-height: 400px;
+
 }
 #components-layout > .ant-layout {
   margin-bottom: 40px;
