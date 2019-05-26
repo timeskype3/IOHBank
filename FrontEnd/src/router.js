@@ -1,24 +1,25 @@
 import Vue from "vue";
 import Router from "vue-router";
 import axios from 'axios'
-import Home from "./views/Home.vue";
+import Unauth from "./views/unauthenticated/index.vue";
+import Home from "./views/unauthenticated/Home.vue";
 
 Vue.use(Router);
 
 
 const checkAuthen = (to, from, next) => {
   console.log('check')
-  axios.post('//localhost:3000/Login', {
-    user: localStorage.getItem('user'),
-    password: localStorage.getItem('password')
-  }).then(({ data }) => {
-    if(data.user.length === 1) {
+  axios.get('//localhost:3000/auth', {
+    headers: {
+      authorization: 'Bearer ' + localStorage.getItem('token')
+    }
+  }).then(({ status }) => {
+    if(status === 200) {
       console.log('router ok')
       next()
-    } else {
-      console.log('router not ok')
-      next('/login')
     }
+  }).catch(() => {
+    next('/login')
   })
 }
 
@@ -28,28 +29,47 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "home",
-      component: Home
-    },
-    {
-      path: "/register",
-      name: "register",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/Register.vue")
-    },
-    {
-      path: "/login",
-      name: "login",
-      component: () => 
-        import("./views/Login.vue")
+      component: Unauth,
+      children: [
+        {
+          path: '',
+          component: Home
+        },
+        {
+          path: "/login",
+          name: "login",
+          component: () => 
+            import("./views/unauthenticated/Login.vue")
+        },
+        {
+          path: "/register",
+          name: "register",
+          // route level code-splitting
+          // this generates a separate chunk (about.[hash].js) for this route
+          // which is lazy-loaded when the route is visited.
+          component: () =>
+            import("./views/unauthenticated/Register.vue")
+        }
+      ]
     },
     {
       path: '/dashboard',
       component: () => import('@/views/Dashboard.vue'),
-      beforeEnter: checkAuthen
+      beforeEnter: checkAuthen,
+      children: [
+        {
+          path: '1',
+          component: () => import('@/views/1.vue')
+        },
+        {
+          path: '2',
+          component: () => import('@/views/2.vue')
+        },
+        {
+          path: 'user/:user',
+          component: () => import('@/views/User.vue')
+        }
+      ]
     }
   ]
 });

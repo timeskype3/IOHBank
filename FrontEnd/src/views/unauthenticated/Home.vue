@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
     <CHome msg="Welcome to InOurHeart Online Banking" />
   </div>
 </template>

@@ -2,10 +2,10 @@
   <div class="LoginForm">
     <a-layout id="components-layout">
       <a-layout-header>
-          <img alt="Vue logo" src="../assets/logo.png" />
-          </a-layout-header>
+        <img alt="Vue logo" src="../assets/logo.png" />
+        </a-layout-header>
       <a-layout-content>
-         <h1>LogIn</h1>
+        <h1>LogIn</h1>
     <a-form  :form="form"  @submit="handleSubmit" >
     <a-form-item
          :label-col="{ span: 4  }"
@@ -148,25 +148,26 @@ export default {
       });
     },
     login() {
-        axios.post('//localhost:3000/Login', {
+        axios.post('//localhost:3000/login', {
             user: this.user,
             password: this.password
         }).then(res => {
-            if(res.data.user.length === 1) {
+          console.log('res', res.data)
+            if(res.data.token) {
                 this.showwrong=false
                 this.showsuc=true
-                localStorage.setItem('user', this.user)
-                localStorage.setItem('password', this.password)
+                localStorage.setItem("token", res.data.token)
                 setTimeout(()=>this.$router.push('/dashboard'),1200)
             } else {
                    this.showwrong=true
-                   console.log('not found')
+                   
             }
         })   
     },
     register(){
       this.$router.push('/register')
-    }
+    },
+    
   },
 };
 </script>

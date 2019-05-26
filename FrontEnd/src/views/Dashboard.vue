@@ -6,9 +6,8 @@
     >
       <div class="logo"/>
       <a-avatar :size="64" icon="user" />
-      <div class="username">
-         <span>Mr.Jirayu</span>
-         <span> Janraluek</span>
+      <div class="username" v-show="!collapsed">
+         <span>{{ name }}</span>
         </div>
       <a-menu theme="dark" :defaultSelectedKeys="['1']" mode="inline" >
                <a-sub-menu
@@ -43,19 +42,7 @@
     <a-layout>
       <a-layout-header style="background: #fff; padding: 0" />
       <a-layout-content style="margin: 0 16px">
-        <a-breadcrumb style="margin: 16px 0">
-          <a-breadcrumb-item>User</a-breadcrumb-item>
-          <a-breadcrumb-item>Bill</a-breadcrumb-item>
-        </a-breadcrumb>
-        <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">
-          Bill is a cat.
-          <a-button
-        type="primary"
-        @click="logout()" 
-        >
-        LogOut
-      </a-button>
-        </div>
+        <router-view />
       </a-layout-content>
       <a-layout-footer style="text-align: center">
         Ant Design ©2018 Created by Ant UED
@@ -63,7 +50,10 @@
     </a-layout>
   </a-layout>
 </template>
+
 <script>
+import jwt from 'jsonwebtoken'
+
 export default {
   data() {
     return {
@@ -76,6 +66,11 @@ export default {
                 localStorage.removeItem('password', this.password)
                 this.$router.push('/login')
         }
+    },
+    computed: {
+      name() {
+        return jwt.decode(localStorage.getItem('token')).name
+      }
     }
 }
 
