@@ -20,26 +20,26 @@ const conn = mysql.createConnection({
 conn.connect()
 
 
-// app.post("/Login",(req,res)=>{
-//     conn.query('SELECT FName, LName, Username, Password FROM clientinfo WHERE Username = ? AND Password = ?', [
-//         req.body.user,
-//         req.body.password
-//     ], (err, results) => {
-//         res.json({
-//             user: results
-//         })
-//         // if(results.length === 1) {
-//         //     res.json({
-//         //         name: results[0].FName + ' ' + results[0].LName,
-//         //         status: 'found'
-//         //     })
-//         // } else {
-//         //     res.json({
-//         //         status: 'not found'
-//         //     })
-//         // }
-//     })
-// })
+/* app.post("/Login",(req,res)=>{
+     conn.query('SELECT FName, LName, Username, Password FROM clientinfo WHERE Username = ? AND Password = ?', [
+         req.body.user,
+         req.body.password
+     ], (err, results) => {
+         res.json({
+             user: results
+         })
+          if(results.length === 1) {
+              res.json({
+                  name: results[0].FName + ' ' + results[0].LName,
+                  status: 'found'
+              })
+          } else {
+              res.json({
+                  status: 'not found'
+              })
+          }
+     })
+ })*/
 
 app.post('/dashboard',verifyToken,(req,res)=>{
     res.json(req.user)
@@ -108,11 +108,23 @@ lname
 citizen_id
 */
 app.post('/register', (req, res) => {
-    const fname = req.body.fname
-    const lname = req.body.lname
-    const citizen_id = req.body.citizen_id
-    /* sql 
-        conn.query('INSERT INTO')
+    const FName = req.body.FName
+    const LName = req.body.LName
+    const DateOfBirth = req.body.DateOfBirth
+    const Nationality = req.body.Nationality
+    const IDCardNumber = req.body.IDCardNumber
+    const BloodType = req.body.BloodType
+    const Email = req.body.Email
+    const Password = req.body.Password
+    const Tel = req.body.Tel
+
+    /*
+    const sqlregis = "INSERT INTO clientinfo (FName, LName, DateOfBirth, Nationality, IDCardNumber, BLoodType, Email, Password, Tel) VALUES ('" + FName "', '" + LName "', '" + DateOfBirth "', '" + Nationality "', '" + IDCardNumber "', '" + BloodType "', '" + Email "', '" + Password "', '" + Tel "',)"
+    conn.query(sqlregis, (err,results) => {
+        if (err) throw err
+        console.log("1 record inserted")
+        res.end
+    })
     */
 })
 
