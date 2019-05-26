@@ -5,7 +5,7 @@
           <img alt="Vue logo" src="../assets/logo.png" />
           </a-layout-header>
       <a-layout-content>
-         <h1>Time Jirayu</h1>
+         <h1>LogIn</h1>
     <a-form  :form="form"  @submit="handleSubmit" >
     <a-form-item
          :label-col="{ span: 4  }"
@@ -14,6 +14,14 @@
          :help="userNameError() || ''"
      
     >
+    <a-alert  v-if="showwrong"
+              message="Username or Password incorrect." 
+              type="error" 
+              banner />
+   <a-alert   v-if="showsuc"
+              message="Login successful."
+              type="success"
+              banner />
       <a-input
         v-model="user"
         v-decorator="[
@@ -51,24 +59,48 @@
         />
       </a-input>
     </a-form-item>
-    <a-form-item :wrapper-col="{ span: 12, offset: 6 }">
+    <a-col :span="24" :style="{ textAlign: 'center' }" >
+    <a-form-item >
+      <a-checkbox
+        v-decorator="[
+          'remember',
+          {
+            valuePropName: 'checked',
+            initialValue: true,
+          }
+        ]"
+      >
+        Remember me
+      </a-checkbox>
       <a-button
+        :style="{ marginLeft: '15px' }"
         type="primary"
         html-type="submit"
         :disabled="hasErrors(form.getFieldsError())"
         @click="login()"
       >
         Log in
-      </a-button>
+      </a-button>  
+        Or <a  @click="register()">
+        register now!
+      </a> 
     </a-form-item>
+     <a
+        class="login-form-forgot"
+        href=""
+      >
+        Forgot password
+      </a>
+    </a-col>
   </a-form>
+  
           </a-layout-content>
       <a-layout-footer>
-          Jirayu coryright
+          InOurHeartBank coryright
           </a-layout-footer>
-    </a-layout>
-    
+    </a-layout>      
   </div>
+  
 </template>
 
 <script>
@@ -78,13 +110,16 @@ function hasErrors (fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 export default {
-    name: "LoginForm",
+    
   data () {
+
     return {
       hasErrors,
       user: '',
       password: '',
       form: this.$form.createForm(this),
+      showwrong: false,
+      showsuc: false
     };
   },
   mounted () {
@@ -118,13 +153,19 @@ export default {
             password: this.password
         }).then(res => {
             if(res.data.user.length === 1) {
+                this.showwrong=false
+                this.showsuc=true
                 localStorage.setItem('user', this.user)
                 localStorage.setItem('password', this.password)
-                this.$router.push('/profile')
+                setTimeout(()=>this.$router.push('/dashboard'),1200)
             } else {
-                console.log('not found')
+                   this.showwrong=true
+                   console.log('not found')
             }
-        })
+        })   
+    },
+    register(){
+      this.$router.push('/register')
     }
   },
 };
@@ -151,6 +192,7 @@ export default {
 }
 #components-layout .ant-layout-content {
  margin: 40px 0 0;
+  min-height: 300px;
 }
 #components-layout > .ant-layout {
   margin-bottom: 40px;
