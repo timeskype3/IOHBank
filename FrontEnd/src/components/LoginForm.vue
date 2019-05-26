@@ -2,7 +2,10 @@
   <div class="LoginForm">
     <a-layout id="components-layout">
       <a-layout-header>
-        <img alt="Vue logo" src="../assets/logo.png" />
+        <img alt="Vue logo" src="../assets/coverwhite.png" 
+        height="210"
+        width="180"
+        />
         </a-layout-header>
       <a-layout-content>
         <h1>Login</h1>
@@ -11,8 +14,7 @@
          :label-col="{ span: 4  }"
          :wrapper-col="{ span: 8 ,offset: 8}"
          :validate-status="userNameError() ? 'error' : ''"
-         :help="userNameError() || ''"
-     
+         :help="userNameError() || ''" 
     >
     <a-alert  v-if="showwrong"
               message="Username or Password incorrect." 
@@ -100,7 +102,6 @@
           </a-layout-footer>
     </a-layout>      
   </div>
-  
 </template>
 
 <script>
@@ -177,7 +178,7 @@ export default {
   text-align: center;
 }
 #components-layout .ant-layout-header{
-    min-height: 220px;
+  min-height: 220px;
 }
 #components-layout .ant-layout-footer {
   background: #0d9b09;
