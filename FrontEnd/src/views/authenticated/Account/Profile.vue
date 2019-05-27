@@ -18,7 +18,9 @@
       }}</a-card-grid>
 
       <a-card-grid style="width:25%;textAlign:'center'">Adress</a-card-grid>
-      <a-card-grid style="width:75%;textAlign:'center'">E-mail</a-card-grid>
+      <a-card-grid style="width:75%;textAlign:'center'">{{
+        profile.Address
+      }}</a-card-grid>
 
       <a-card-grid style="width:25%;textAlign:'center'">E-mail</a-card-grid>
       <a-card-grid style="width:25%;textAlign:'center'">{{

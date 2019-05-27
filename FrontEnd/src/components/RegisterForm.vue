@@ -214,11 +214,11 @@ export default {
           Password: this.Password
         })
         .then(res => {
-          this.$message.success("Create Success !");
+          this.$message.success("Create Success!");
           setTimeout(() => this.$router.push("/login"), 600);
         })
         .catch(() => {
-          this.$message.success("Invalid Plase input correct!");
+          this.$message.error("Invalid, Plase input the correct one!");
         });
     },
     handleSubmit(e) {
