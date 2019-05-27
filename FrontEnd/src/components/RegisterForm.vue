@@ -92,11 +92,11 @@
         ]"
         placeholder="Please select your nationality"
       >
-        <a-select-option value="Thai"> Thai </a-select-option>
-        <a-select-option value="Australian"> Australian </a-select-option>
-        <a-select-option value="Belgian"> Belgian </a-select-option>
-        <a-select-option value="Japanese"> Japanese </a-select-option>
-        <a-select-option value="Singaporean"> Singaporean </a-select-option>
+        <a-select-option value="THA"> THA </a-select-option>
+        <a-select-option value="USA"> USA </a-select-option>
+        <a-select-option value="FRA"> FRA </a-select-option>
+        <a-select-option value="JAP"> JAP </a-select-option>
+        <a-select-option value="GER"> GER </a-select-option>
       </a-select>
     </a-form-item>
 

@@ -14,8 +14,8 @@
         <p v-if="noTitleKey === 'profile'">
           <Profile />
         </p>
-        <p v-if="noTitleKey === 'bankaccount'">
-          <BankAccount />
+        <p v-if="noTitleKey === 'app'">
+          app content
         </p>
         <p v-else-if="noTitleKey === 'project'">
           project content
@@ -27,12 +27,9 @@
 
 <script>
 import Profile from "@/views/authenticated/Account/Profile.vue";
-import BankAccount from "@/views/authenticated/Account/BankAccount.vue";
-
 export default {
   components: {
-    Profile,
-    BankAccount
+    Profile
   },
   data() {
     return {
@@ -42,8 +39,8 @@ export default {
           tab: "Profile"
         },
         {
-          key: "bankaccount",
-          tab: "Bank Account"
+          key: "app",
+          tab: "app"
         },
         {
           key: "project",
