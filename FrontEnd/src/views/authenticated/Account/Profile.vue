@@ -1,7 +1,24 @@
 <template>
   <div>
     <p>
-      Test fucking website.
+      {{ profile }}
     </p>
   </div>
 </template>
+
+<script>
+import api from "@/utils/api";
+
+export default {
+  data: () => ({
+    profile: {}
+  }),
+  mounted() {
+    api()
+      .get("/profile")
+      .then(({ data }) => {
+        this.profile = data;
+      });
+  }
+};
+</script>

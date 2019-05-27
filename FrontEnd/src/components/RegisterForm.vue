@@ -1,162 +1,87 @@
 <template>
-  <a-form
-    :form="form"
-    @submit="handleSubmit"
-  >
-  
-  <a-form-item
-      v-bind="formItemLayout"
-      label="Name"
-    >
-
-      <a-input 
-      placeholder = "Please enter your Name"
-        v-decorator="[
-          'Name',
-          {
-            rules: [{
-              type: 'text', message: 'The input is Invalid Name',
-            }, {
-              required: true, message: 'Please input your Name',
-            }]
-          }
-        ]"
+  <a-form :form="form" @submit="handleSubmit">
+    <a-form-item v-bind="formItemLayout" label="Name">
+      <a-input
+        v-model="FName"
+        v-decorator="['Name']"
+        placeholder="Please enter your Name"
       />
-    
-     </a-form-item>
+    </a-form-item>
 
-<a-form-item
-      v-bind="formItemLayout"
-      label="Surname"
-    >
-      <a-input 
-      placeholder = "Please enter your Surname"
-        v-decorator="[
-          'Surname',
-          {
-            rules: [{
-              type: 'Text', message: 'The input is  Invalid Surname',
-            }, {
-              required: true, message: 'Please input your Surname',
-            }]
-          }
-        ]"
+    <a-form-item v-bind="formItemLayout" label="Surname">
+      <a-input
+        v-model="LName"
+        v-decorator="['Surname']"
+        placeholder="Please enter your Surname"
       />
-</a-form-item>
+    </a-form-item>
 
-<a-form-item
-      v-bind="formItemLayout"
-      label="DOB"
-    >
-  <a-date-picker 
-      placeholder = "YYYY/MM/DD"
-      style="width: 100%"
-            
-    />
- </a-form-item>
+    <a-form-item v-bind="formItemLayout" label="Gender">
+      <a-radio-group v-model="Gender" :value="size" @change="handleSizeChange">
+        <a-radio-button value="Male" style="color:#0000CC">Male</a-radio-button>
+        <a-radio-button value="Female" style="color:#FF0099"
+          >Female</a-radio-button
+        >
+      </a-radio-group>
+    </a-form-item>
 
-<a-form-item
-      v-bind="formItemLayout"
-      label="Nationality"
-    >
+    <a-form-item v-bind="formItemLayout" label="DOB">
+      <a-date-picker
+        v-model="DOB"
+        placeholder="YYYY/MM/DD"
+        style="width: 100%"
+      />
+    </a-form-item>
+
+    <a-form-item v-bind="formItemLayout" label="Nationality">
       <a-select
-      placeholder = "Please select your nationality"
-        v-decorator="[
-          'Nationality',
-
-          {
-            rules: [{
-              required: true, message: 'Please select your Nationality',
-            }]
-          }
-        ]"
+        v-model="Nationality"
+        v-decorator="['Nationality']"
+        placeholder="Please select your nationality"
       >
-      <a-select-option value="Thai"> thai </a-select-option>
+        <a-select-option value="Thai"> Thai </a-select-option>
       </a-select>
     </a-form-item>
 
-<a-form-item
-      v-bind="formItemLayout"
-      label="NationalID"
-    >
+    <a-form-item v-bind="formItemLayout" label="NationalID">
       <a-input
-      placeholder = "Pleasre enter your NaionalID"
-      
-        v-decorator="[
-          'NationalID',
-          {
-            rules: [{
-              type: 'number', message: 'The input is Invalid NationalID',
-            }, {
-              required: true, message: 'Please input your NationalID',
-            }]
-          }
-        ]"
+        v-model="NationalityID"
+        v-decorator="['NationalID']"
+        placeholder="Pleasre enter your NaionalID"
       />
-</a-form-item>
+    </a-form-item>
 
-<a-form-item
-      v-bind="formItemLayout"
-      label="BloodType"
-    >
+    <a-form-item v-bind="formItemLayout" label="BloodType">
       <a-select
-        placeholder = "PLease select your bloodtype"
-        v-decorator="[
-          'bloodtype',
-          {
-            rules: [{
-              required: true, message: 'Please select your Bloodtype',
-            }]
-          }
-        ]"
+        v-model="BloodType"
+        v-decorator="['bloodtype']"
+        placeholder="PLease select your bloodtype"
       >
-      <a-select-option value="A"> A </a-select-option>
-      <a-select-option value="B"> B </a-select-option>
-      <a-select-option value="O"> O </a-select-option>
-      <a-select-option value="AB"> AB </a-select-option>
+        <a-select-option value="A"> A </a-select-option>
+        <a-select-option value="B"> B </a-select-option>
+        <a-select-option value="O"> O </a-select-option>
+        <a-select-option value="AB"> AB </a-select-option>
       </a-select>
     </a-form-item>
 
- <a-form-item
-      v-bind="formItemLayout"
-      label="E-mail"
-    >
+    <a-form-item v-bind="formItemLayout" label="E-mail">
       <a-input
-        placeholder = "Please enter your E-mail"
-        v-decorator="[
-          'email',
-          {
-            rules: [{
-              type: 'email', message: 'The input is not valid E-mail!',
-            }, {
-              required: true, message: 'Please input your E-mail!',
-            }]
-          }
-        ]"
+        v-model="Email"
+        v-decorator="['email']"
+        placeholder="Please enter your E-mail"
       />
     </a-form-item>
 
-     <a-form-item
-      v-bind="formItemLayout"
-      label="Phone Number"
-    >
+    <a-form-item v-bind="formItemLayout" label="Phone Number">
       <a-input
-        placeholder = "Please enter your phone number"
-        v-decorator="[
-          'phone',
-          {
-            rules: [
-            { required: true, message: 'Please input your phone number!' }],
-          }
-        ]"
+        v-model="Tel"
+        v-decorator="['phone']"
+        placeholder="Please enter your phone number"
         style="width: 100%"
       >
         <a-select
           slot="addonBefore"
-          v-decorator="[
-            'prefix',
-            { initialValue: '+66' }
-          ]"
+          v-decorator="['prefix', { initialValue: '+66' }]"
           style="width: 70px"
         >
           <a-select-option value="+66">
@@ -166,82 +91,54 @@
       </a-input>
     </a-form-item>
 
-    <a-form-item
-      v-bind="formItemLayout"
-      label = "Create your Username"
-    >
-      <a-input 
-      placeholder = "Please enter your Username"
-        v-decorator="[
-          'username',
-          {
-            rules: [{
-              type: 'Text', message: 'The input is  Invalid Username',
-            }, {
-              required: true, message: 'Please input your Username',
-            }]
-          }
-        ]"
-      />
-</a-form-item>
+    <a-form-item v-bind="formItemLayout" label="Upload your Signature">
+      <a-upload
+        v-model="Signature"
+        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+        :multiple="true"
+        :file-list="fileList"
+        @change="handleChange"
+      >
+        <a-button> <a-icon type="upload" /> Upload </a-button>
+      </a-upload>
+    </a-form-item>
 
-    <a-form-item
-      v-bind="formItemLayout"
-      label="Password"
-    >
+    <a-form-item v-bind="formItemLayout" label="Create Username">
       <a-input
-        placeholder = "Please enter your password"
-        v-decorator="[
-          'password',
-          {
-            rules: [{
-              required: true, message: 'Please input your password!',
-            }, {
-              validator: validateToNextPassword,
-            }],
-          }
-        ]"
+        v-model="Username"
+        v-decorator="['username']"
+        placeholder="Please enter your Username"
+      />
+    </a-form-item>
+
+    <a-form-item v-bind="formItemLayout" label="Password">
+      <a-input
+        v-model="Password"
+        v-decorator="['password']"
+        placeholder="Please enter your password"
         type="password"
       />
     </a-form-item>
 
-    <a-form-item
-      v-bind="formItemLayout"
-      label="Confirm Password"
-    >
+    <a-form-item v-bind="formItemLayout" label="Confirm Password">
       <a-input
-        placeholder = "Please re-enter your password"
-        v-decorator="[
-          'confirm',
-          {
-            rules: [{
-              required: true, message: 'Please confirm your password!',
-            }, {
-              validator: compareToFirstPassword,
-            }],
-          }
-        ]"
+        v-decorator="['confirm']"
+        placeholder="Please re-enter your password"
         type="password"
         @blur="handleConfirmBlur"
       />
     </a-form-item>
 
-
-
     <a-form-item v-bind="tailFormItemLayout">
-      <a-checkbox
-        v-decorator="['agreement', {valuePropName: 'checked'}]"
-      >
-        I have read the <a href="">
+      <a-checkbox v-decorator="['agreement', { valuePropName: 'checked' }]">
+        I have read the
+        <a href="">
           agreement
         </a>
       </a-checkbox>
     </a-form-item>
     <a-form-item v-bind="tailFormItemLayout">
-      <a-button
-        type="primary"
-        html-type="submit"
-      >
+      <a-button type="primary" html-type="submit" @click="create()">
         Register
       </a-button>
     </a-form-item>
@@ -249,80 +146,113 @@
 </template>
 
 <script>
-const residences = [];
+import axios from "axios";
 
 export default {
-     name: "RegisterForm",
-  data () {
+  name: "RegisterForm",
+  data() {
     return {
+      FName: "",
+      LName: "",
+      Tel: "",
+      Gender: "",
+      DOB: "",
+      Nationality: "",
+      NationalityID: "",
+      BloodType: "",
+      Email: "",
+      Username: "",
+      Password: "",
       confirmDirty: false,
-      residences,
       autoCompleteResult: [],
       formItemLayout: {
         labelCol: {
           xs: { span: 4 },
-          sm: { span: 9 },
+          sm: { span: 9 }
         },
         wrapperCol: {
           xs: { span: 6 },
-          sm: { span: 6 },
-         
-        },
+          sm: { span: 6 }
+        }
       },
       tailFormItemLayout: {
         wrapperCol: {
           xs: {
             span: 24,
-            offset: 0,
+            offset: 0
           },
           sm: {
             span: 8,
-            offset: 8,
-          },
-        },
-      },
+            offset: 8
+          }
+        }
+      }
     };
   },
-  beforeCreate () {
+  beforeCreate() {
     this.form = this.$form.createForm(this);
   },
   methods: {
-    handleSubmit  (e) {
+    create() {
+      axios
+        .post("//localhost:3000/register", {
+          FName: this.FName,
+          LName: this.LName,
+          Tel: this.Tel,
+          Gender: this.Gender,
+          DateOfBirth: this.DOB,
+          Nationality: this.Nationality,
+          IDCardNumber: this.NationalityID,
+          BloodType: this.BloodType,
+          Email: this.Email,
+          Username: this.Username,
+          Password: this.Password
+        })
+        .then(res => {
+          this.$message.success("Create Complete !");
+        })
+        .catch(() => {
+          this.$message.success("Fuck !");
+        });
+    },
+    handleSubmit(e) {
       e.preventDefault();
       this.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
-          console.log('Received values of form: ', values);
+          console.log("Received values of form: ", values);
         }
       });
     },
-    handleConfirmBlur  (e) {
+    handleConfirmBlur(e) {
       const value = e.target.value;
       this.confirmDirty = this.confirmDirty || !!value;
     },
-    compareToFirstPassword  (rule, value, callback) {
+    compareToFirstPassword(rule, value, callback) {
       const form = this.form;
-      if (value && value !== form.getFieldValue('password')) {
-        callback('Two passwords that you enter is inconsistent!');
+      if (value && value !== form.getFieldValue("password")) {
+        callback("Two passwords that you enter is inconsistent!");
       } else {
         callback();
       }
     },
-    validateToNextPassword  (rule, value, callback) {
+    validateToNextPassword(rule, value, callback) {
       const form = this.form;
       if (value && this.confirmDirty) {
-        form.validateFields(['confirm'], { force: true });
+        form.validateFields(["confirm"], { force: true });
       }
       callback();
     },
-    handleWebsiteChange  (value) {
+    handleWebsiteChange(value) {
       let autoCompleteResult;
       if (!value) {
         autoCompleteResult = [];
       } else {
-        autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
+        autoCompleteResult = [".com", ".org", ".net"].map(
+          domain => `${value}${domain}`
+        );
       }
       this.autoCompleteResult = autoCompleteResult;
-    },
-  },
+    }
+  }
 };
 </script>

@@ -69,6 +69,15 @@ app.post('/login', (req,res)=> {
 app.get('/auth', verifyToken, (req, res) => {
    res.sendStatus(200)
 })
+
+app.get('/profile', verifyToken, (req, res) => {
+    conn.query('SELECT * FROM clientinfo WHERE ClientID = ?', [
+        req.user.id
+    ], (err, results) => {
+        if(err) return res.sendStatus(500)
+        res.json(results[0])
+    })
+})
 //Format of Token
 //Authorization : Bearer <access_token>
 
@@ -108,20 +117,39 @@ lname
 citizen_id
 */
 app.post('/register', (req, res) => {
-    const FName = req.body.FName
-    const LName = req.body.LName
-    const DateOfBirth = req.body.DateOfBirth
-    const Nationality = req.body.Nationality
-    const IDCardNumber = req.body.IDCardNumber
-    const BloodType = req.body.BloodType
-    const Email = req.body.Email
-    const Password = req.body.Password
-    const Tel = req.body.Tel
+    const fields = [
+        "FName",
+        "LName",
+        "Gender",
+        "DateOfBirth",
+        "Nationality",
+        "IDCardNumber",
+        "BloodType",
+        "Email",
+        "Tel",
+        "Username",
+        "Password"
+    ]
+
+    const values = fields.map(field => req.body[field])
+    conn.query(
+        "INSERT INTO clientinfo(" + fields.join(', ') + ") VALUES (" + '?'.repeat(fields.length).split('').join(', ') + ")",
+        values,
+        (err, results) => {
+            if(err){
+                console.log(err)
+                res.sendStatus(406)
+            }else{
+                console.log("1 record inserted")
+                res.sendStatus(201)
+            }
+        }
+    ) 
 
     /*
-    const sqlregis = "INSERT INTO clientinfo (FName, LName, DateOfBirth, Nationality, IDCardNumber, BLoodType, Email, Password, Tel) VALUES ('" + FName "', '" + LName "', '" + DateOfBirth "', '" + Nationality "', '" + IDCardNumber "', '" + BloodType "', '" + Email "', '" + Password "', '" + Tel "',)"
-    conn.query(sqlregis, (err,results) => {
-        if (err) throw err
+    INSERT INTO clientinfo (FName, LName, DateOfBirth, Nationality, IDCardNumber, BLoodType, Email, Password, Tel) VALUES ('" + FName "', '" + LName "', '" + DateOfBirth "', '" + Nationality "', '" + IDCardNumber "', '" + BloodType "', '" + Email "', '" + Password "', '" + Tel "',)"
+    query(sqlregis, (err,results) => {
+
         console.log("1 record inserted")
         res.end
     })
