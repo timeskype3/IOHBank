@@ -16,11 +16,12 @@
       />
     </a-form-item>
 
-     <a-form-item v-bind="formItemLayout" label="Address">
-      <a-input
+    <a-form-item v-bind="formItemLayout" label="Address">
+      <a-textarea
         v-model="Address"
         v-decorator="['Address']"
         placeholder="Please enter your Address"
+        autosize
       />
     </a-form-item>
 

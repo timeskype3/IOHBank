@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 25, 2019 at 08:42 AM
+-- Generation Time: May 27, 2019 at 02:46 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `bankproject`
+-- Database: `iohbank`
 --
 
 -- --------------------------------------------------------
@@ -77,7 +77,6 @@ CREATE TABLE `clientinfo` (
   `ClientID` int(10) NOT NULL,
   `FName` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `LName` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `Signature` blob NOT NULL,
   `Tel` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `Address` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `Email` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
@@ -87,8 +86,15 @@ CREATE TABLE `clientinfo` (
   `BloodType` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL,
   `DateOfBirth` date NOT NULL,
   `Username` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
-  `Password` varchar(6) COLLATE utf8_unicode_ci NOT NULL
+  `Password` varchar(20) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `clientinfo`
+--
+
+INSERT INTO `clientinfo` (`ClientID`, `FName`, `LName`, `Tel`, `Address`, `Email`, `Gender`, `IDCardNumber`, `Nationality`, `BloodType`, `DateOfBirth`, `Username`, `Password`) VALUES
+(1, 'Jariwat', 'Phansri', '', '', '', '', '', '', NULL, '0000-00-00', 'admin', 'admin');
 
 -- --------------------------------------------------------
 
@@ -236,7 +242,9 @@ ALTER TABLE `billpamentdata`
 -- Indexes for table `clientinfo`
 --
 ALTER TABLE `clientinfo`
-  ADD PRIMARY KEY (`ClientID`);
+  ADD PRIMARY KEY (`ClientID`),
+  ADD UNIQUE KEY `Username` (`Username`),
+  ADD UNIQUE KEY `IDCardNumber` (`IDCardNumber`);
 
 --
 -- Indexes for table `discount`
@@ -322,7 +330,7 @@ ALTER TABLE `billpamentdata`
 -- AUTO_INCREMENT for table `clientinfo`
 --
 ALTER TABLE `clientinfo`
-  MODIFY `ClientID` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `ClientID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `discount`
