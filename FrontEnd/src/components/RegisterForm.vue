@@ -49,10 +49,10 @@
         placeholder="Please select your nationality"
       >
         <a-select-option value="Thai"> Thai </a-select-option>
-        <a-select-option value="Thai"> USA </a-select-option>
-        <a-select-option value="Thai"> FRA </a-select-option>
-        <a-select-option value="Thai"> Japan </a-select-option>
-        <a-select-option value="Thai"> GER </a-select-option>
+        <a-select-option value="Thai"> Australian </a-select-option>
+        <a-select-option value="Thai"> Belgian </a-select-option>
+        <a-select-option value="Thai"> Japanese </a-select-option>
+        <a-select-option value="Thai"> Singaporean </a-select-option>
       </a-select>
     </a-form-item>
 
