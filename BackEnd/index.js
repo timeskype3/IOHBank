@@ -90,6 +90,7 @@ app.post('/register', (req, res) => {
     const fields = [
         "FName",
         "LName",
+        "Address",
         "Gender",
         "DateOfBirth",
         "Nationality",

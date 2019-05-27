@@ -16,6 +16,14 @@
       />
     </a-form-item>
 
+     <a-form-item v-bind="formItemLayout" label="Address">
+      <a-input
+        v-model="Address"
+        v-decorator="['Address']"
+        placeholder="Please enter your Address"
+      />
+    </a-form-item>
+
     <a-form-item v-bind="formItemLayout" label="Gender">
       <a-radio-group v-model="Gender" :value="size" @change="handleSizeChange">
         <a-radio-button value="Male" style="color:#0000CC">Male</a-radio-button>
@@ -40,6 +48,10 @@
         placeholder="Please select your nationality"
       >
         <a-select-option value="Thai"> Thai </a-select-option>
+        <a-select-option value="Thai"> USA </a-select-option>
+        <a-select-option value="Thai"> FRA </a-select-option>
+        <a-select-option value="Thai"> Japan </a-select-option>
+        <a-select-option value="Thai"> GER </a-select-option>
       </a-select>
     </a-form-item>
 
@@ -84,9 +96,11 @@
           v-decorator="['prefix', { initialValue: '+66' }]"
           style="width: 70px"
         >
-          <a-select-option value="+66">
-            +66
-          </a-select-option>
+          <a-select-option value="+66"> +66 </a-select-option>
+          <a-select-option value="+1"> +1 </a-select-option>
+          <a-select-option value="+33"> +33 </a-select-option>
+          <a-select-option value="+81"> +81 </a-select-option>
+          <a-select-option value="+49"> +49 </a-select-option>
         </a-select>
       </a-input>
     </a-form-item>
@@ -143,6 +157,7 @@ export default {
       FName: "",
       LName: "",
       Tel: "",
+      Address: "",
       Gender: "",
       DOB: "",
       Nationality: "",
@@ -186,6 +201,7 @@ export default {
         .post("//localhost:3000/register", {
           FName: this.FName,
           LName: this.LName,
+          Address: this.Address,
           Tel: this.Tel,
           Gender: this.Gender,
           DateOfBirth: this.DOB,
