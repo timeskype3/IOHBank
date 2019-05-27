@@ -91,18 +91,6 @@
       </a-input>
     </a-form-item>
 
-    <a-form-item v-bind="formItemLayout" label="Upload your Signature">
-      <a-upload
-        v-model="Signature"
-        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-        :multiple="true"
-        :file-list="fileList"
-        @change="handleChange"
-      >
-        <a-button> <a-icon type="upload" /> Upload </a-button>
-      </a-upload>
-    </a-form-item>
-
     <a-form-item v-bind="formItemLayout" label="Create Username">
       <a-input
         v-model="Username"
