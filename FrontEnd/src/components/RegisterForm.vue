@@ -136,6 +136,55 @@
       />
     </a-form-item>
 
+     <a-form-item
+      v-bind="formItemLayout"
+      label="Phone Number"
+    >
+      <a-input
+        placeholder = "Please enter your phone number"
+        v-decorator="[
+          'phone',
+          {
+            rules: [
+            { required: true, message: 'Please input your phone number!' }],
+          }
+        ]"
+        style="width: 100%"
+      >
+        <a-select
+          slot="addonBefore"
+          v-decorator="[
+            'prefix',
+            { initialValue: '+66' }
+          ]"
+          style="width: 70px"
+        >
+          <a-select-option value="+66">
+            +66
+          </a-select-option>
+        </a-select>
+      </a-input>
+    </a-form-item>
+
+    <a-form-item
+      v-bind="formItemLayout"
+      label = "Create your Username"
+    >
+      <a-input 
+      placeholder = "Please enter your Username"
+        v-decorator="[
+          'username',
+          {
+            rules: [{
+              type: 'Text', message: 'The input is  Invalid Username',
+            }, {
+              required: true, message: 'Please input your Username',
+            }]
+          }
+        ]"
+      />
+</a-form-item>
+
     <a-form-item
       v-bind="formItemLayout"
       label="Password"
@@ -176,37 +225,9 @@
         @blur="handleConfirmBlur"
       />
     </a-form-item>
-    
-    <a-form-item
-      v-bind="formItemLayout"
-      label="Phone Number"
-    >
-      <a-input
-        placeholder = "Please enter your phone number"
-        v-decorator="[
-          'phone',
-          {
-            rules: [
-            { required: true, message: 'Please input your phone number!' }],
-          }
-        ]"
-        style="width: 100%"
-      >
-        <a-select
-          slot="addonBefore"
-          v-decorator="[
-            'prefix',
-            { initialValue: '+66' }
-          ]"
-          style="width: 70px"
-        >
-          <a-select-option value="+66">
-            +66
-          </a-select-option>
-        </a-select>
-      </a-input>
-    </a-form-item>
-    
+
+
+
     <a-form-item v-bind="tailFormItemLayout">
       <a-checkbox
         v-decorator="['agreement', {valuePropName: 'checked'}]"
