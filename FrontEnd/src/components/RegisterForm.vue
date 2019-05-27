@@ -213,10 +213,11 @@ export default {
           Password: this.Password
         })
         .then(res => {
-          this.$message.success("Create Complete !");
+          this.$message.success("Create Success !");
+          setTimeout(() => this.$router.push("/login"), 600);
         })
         .catch(() => {
-          this.$message.success("Fuck !");
+          this.$message.success("Invalid Plase input correct!");
         });
     },
     handleSubmit(e) {
