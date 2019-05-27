@@ -1,22 +1,41 @@
 <template>
   <div>
     <template>
-      <a-card title="{fname} {lname}">
-        <a-card-grid style="width:33%;textAlign:'center'">Username</a-card-grid>
-        <a-card-grid style="width:33%;textAlign:'center'">clientID</a-card-grid>
-        <a-card-grid style="width:33%;textAlign:'center'"
+      <a-card title="Information">
+        <a-card-grid style="width:25%;textAlign:'center'"
+          >Account Name</a-card-grid
+        >
+        <a-card-grid style="width:75%;textAlign:'center'">{{
+          profile.FName + " " + profile.LName
+        }}</a-card-grid>
+
+        <a-card-grid style="width:25%;textAlign:'center'">Gender</a-card-grid>
+        <a-card-grid style="width:25%;textAlign:'center'">{{
+          profile.Gender
+        }}</a-card-grid>
+        <a-card-grid style="width:25%;textAlign:'center'">Age</a-card-grid>
+        <a-card-grid style="width:25%;textAlign:'center'">{{
+          new Date().getFullYear() - profile.DateOfBirth.split("-")[0]
+        }}</a-card-grid>
+
+        <a-card-grid style="width:25%;textAlign:'center'">Adress</a-card-grid>
+        <a-card-grid style="width:75%;textAlign:'center'">E-mail</a-card-grid>
+
+        <a-card-grid style="width:25%;textAlign:'center'">E-mail</a-card-grid>
+        <a-card-grid style="width:25%;textAlign:'center'">{{
+          profile.Email
+        }}</a-card-grid>
+        <a-card-grid style="width:25%;textAlign:'center'">Phone</a-card-grid>
+        <a-card-grid style="width:25%;textAlign:'center'">{{
+          "0" + profile.Tel
+        }}</a-card-grid>
+
+        <a-card-grid style="width:25%;textAlign:'center'"
           >Nationality</a-card-grid
         >
-
-        <a-card-grid style="width:33%;textAlign:'center'">Gender</a-card-grid>
-        <a-card-grid style="width:33%;textAlign:'center'">DOB</a-card-grid>
-        <a-card-grid style="width:33%;textAlign:'center'"
-          >Bloodgroup</a-card-grid
-        >
-
-        <a-card-grid style="width:33%;textAlign:'center'">Adress</a-card-grid>
-        <a-card-grid style="width:33%;textAlign:'center'">E-mail</a-card-grid>
-        <a-card-grid style="width:33%;textAlign:'center'">Tel</a-card-grid>
+        <a-card-grid style="width:25%;textAlign:'center'">{{
+          profile.Nationality
+        }}</a-card-grid>
       </a-card>
     </template>
 
@@ -27,12 +46,18 @@
 </template>
 
 <script>
+import jwt from "jsonwebtoken";
 import api from "@/utils/api";
 
 export default {
   data: () => ({
     profile: {}
   }),
+  computed: {
+    name() {
+      return jwt.decode(localStorage.getItem("token"));
+    }
+  },
   mounted() {
     api()
       .get("/profile")
