@@ -19,32 +19,6 @@ const conn = mysql.createConnection({
 
 conn.connect()
 
-
-/* app.post("/Login",(req,res)=>{
-     conn.query('SELECT FName, LName, Username, Password FROM clientinfo WHERE Username = ? AND Password = ?', [
-         req.body.user,
-         req.body.password
-     ], (err, results) => {
-         res.json({
-             user: results
-         })
-          if(results.length === 1) {
-              res.json({
-                  name: results[0].FName + ' ' + results[0].LName,
-                  status: 'found'
-              })
-          } else {
-              res.json({
-                  status: 'not found'
-              })
-          }
-     })
- })*/
-
-app.post('/dashboard',verifyToken,(req,res)=>{
-    res.json(req.user)
-});
-
 app.post('/login', (req,res)=> {
     conn.query('SELECT ClientID, FName, LName, Email FROM clientinfo WHERE Username = ? AND Password = ?', [
         req.body.user,
@@ -66,6 +40,10 @@ app.post('/login', (req,res)=> {
     })
 });
 
+app.post('/dashboard',verifyToken,(req,res)=>{
+    res.json(req.user)
+});
+
 app.get('/auth', verifyToken, (req, res) => {
    res.sendStatus(200)
 })
@@ -78,6 +56,7 @@ app.get('/profile', verifyToken, (req, res) => {
         res.json(results[0])
     })
 })
+
 //Format of Token
 //Authorization : Bearer <access_token>
 
@@ -107,15 +86,6 @@ function verifyToken(req,res,next){
     }
 }
 
-
-
-/*
-register
-POST /register
-fname
-lname
-citizen_id
-*/
 app.post('/register', (req, res) => {
     const fields = [
         "FName",
@@ -145,15 +115,6 @@ app.post('/register', (req, res) => {
             }
         }
     ) 
-
-    /*
-    INSERT INTO clientinfo (FName, LName, DateOfBirth, Nationality, IDCardNumber, BLoodType, Email, Password, Tel) VALUES ('" + FName "', '" + LName "', '" + DateOfBirth "', '" + Nationality "', '" + IDCardNumber "', '" + BloodType "', '" + Email "', '" + Password "', '" + Tel "',)"
-    query(sqlregis, (err,results) => {
-
-        console.log("1 record inserted")
-        res.end
-    })
-    */
 })
 
 app.listen(3000,()=>console.log('Connected to port 3000'))
