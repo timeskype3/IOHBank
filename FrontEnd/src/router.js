@@ -71,6 +71,10 @@ export default new Router({
       beforeEnter: checkAuthen,
       children: [
         {
+          path: '/account',
+          component: () => import('@/views/authenticated/Account/Account.vue')
+        },
+        {
           path: '/transfer',
           component: () => import('@/views/authenticated/Transections/Transfer.vue')
         },

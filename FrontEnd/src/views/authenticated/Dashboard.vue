@@ -11,7 +11,7 @@
         </div>
       <a-menu theme="dark" :defaultSelectedKeys="['1']" mode="inline" >
         <a-menu-item key="1" >
-          <router-link to="">
+          <router-link to="/account">
           <a-icon type="user" />
              <span>Account</span>
           </router-link>
