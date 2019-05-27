@@ -16,11 +16,12 @@
       />
     </a-form-item>
 
-     <a-form-item v-bind="formItemLayout" label="Address">
-      <a-input
+    <a-form-item v-bind="formItemLayout" label="Address">
+      <a-textarea
         v-model="Address"
         v-decorator="['Address']"
         placeholder="Please enter your Address"
+        autosize
       />
     </a-form-item>
 
@@ -47,11 +48,11 @@
         v-decorator="['Nationality']"
         placeholder="Please select your nationality"
       >
-        <a-select-option value="Thai"> Thai </a-select-option>
-        <a-select-option value="Thai"> USA </a-select-option>
-        <a-select-option value="Thai"> FRA </a-select-option>
-        <a-select-option value="Thai"> Japan </a-select-option>
-        <a-select-option value="Thai"> GER </a-select-option>
+        <a-select-option value="THA"> THA </a-select-option>
+        <a-select-option value="USA"> USA </a-select-option>
+        <a-select-option value="FRA"> FRA </a-select-option>
+        <a-select-option value="JAP"> JAP </a-select-option>
+        <a-select-option value="GER"> GER </a-select-option>
       </a-select>
     </a-form-item>
 
@@ -213,11 +214,11 @@ export default {
           Password: this.Password
         })
         .then(res => {
-          this.$message.success("Create Success !");
+          this.$message.success("Create Success!");
           setTimeout(() => this.$router.push("/login"), 600);
         })
         .catch(() => {
-          this.$message.success("Invalid Plase input correct!");
+          this.$message.error("Invalid, Plase input the correct one!");
         });
     },
     handleSubmit(e) {
