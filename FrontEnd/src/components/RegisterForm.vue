@@ -3,7 +3,18 @@
     <a-form-item v-bind="formItemLayout" label="Name">
       <a-input
         v-model="FName"
-        v-decorator="['Name']"
+        v-decorator="[
+          'Name',
+          {
+            rules: [
+              {
+                required: true,
+                message: 'Please input your firstname!',
+                whitespace: true
+              }
+            ]
+          }
+        ]"
         placeholder="Please enter your Name"
       />
     </a-form-item>
@@ -11,7 +22,18 @@
     <a-form-item v-bind="formItemLayout" label="Surname">
       <a-input
         v-model="LName"
-        v-decorator="['Surname']"
+        v-decorator="[
+          'Surname',
+          {
+            rules: [
+              {
+                required: true,
+                message: 'Please input your surname!',
+                whitespace: true
+              }
+            ]
+          }
+        ]"
         placeholder="Please enter your Surname"
       />
     </a-form-item>
@@ -37,6 +59,17 @@
     <a-form-item v-bind="formItemLayout" label="DOB">
       <a-date-picker
         v-model="DOB"
+        v-decorator="[
+          'DOB',
+          {
+            rules: [
+              {
+                required: true,
+                message: 'Birthday please!'
+              }
+            ]
+          }
+        ]"
         placeholder="YYYY/MM/DD"
         style="width: 100%"
       />
@@ -45,7 +78,18 @@
     <a-form-item v-bind="formItemLayout" label="Nationality">
       <a-select
         v-model="Nationality"
-        v-decorator="['Nationality']"
+        v-decorator="[
+          'Nationality',
+          {
+            rules: [
+              {
+                required: true,
+                message: 'Please input your Nationality!',
+                whitespace: true
+              }
+            ]
+          }
+        ]"
         placeholder="Please select your nationality"
       >
         <a-select-option value="Thai"> Thai </a-select-option>
@@ -59,7 +103,19 @@
     <a-form-item v-bind="formItemLayout" label="NationalID">
       <a-input
         v-model="NationalityID"
-        v-decorator="['NationalID']"
+        v-decorator="[
+          'NationalID',
+          {
+            rules: [
+              {
+                required: true,
+                type: 'string',
+                len: 13,
+                message: 'Please input at least 13 digits!'
+              }
+            ]
+          }
+        ]"
         placeholder="Pleasre enter your NaionalID"
       />
     </a-form-item>
@@ -67,7 +123,18 @@
     <a-form-item v-bind="formItemLayout" label="BloodType">
       <a-select
         v-model="BloodType"
-        v-decorator="['bloodtype']"
+        v-decorator="[
+          'bloodtype',
+          {
+            rules: [
+              {
+                required: true,
+                message: 'Please select the BloodType!',
+                whitespace: true
+              }
+            ]
+          }
+        ]"
         placeholder="PLease select your bloodtype"
       >
         <a-select-option value="A"> A </a-select-option>
@@ -80,7 +147,21 @@
     <a-form-item v-bind="formItemLayout" label="E-mail">
       <a-input
         v-model="Email"
-        v-decorator="['email']"
+        v-decorator="[
+          'email',
+          {
+            rules: [
+              {
+                type: 'email',
+                message: 'The input is not valid E-mail!'
+              },
+              {
+                required: true,
+                message: 'Please input your E-mail!'
+              }
+            ]
+          }
+        ]"
         placeholder="Please enter your E-mail"
       />
     </a-form-item>
@@ -88,7 +169,14 @@
     <a-form-item v-bind="formItemLayout" label="Phone Number">
       <a-input
         v-model="Tel"
-        v-decorator="['phone']"
+        v-decorator="[
+          'phone',
+          {
+            rules: [
+              { required: true, message: 'Please input your phone number!' }
+            ]
+          }
+        ]"
         placeholder="Please enter your phone number"
         style="width: 100%"
       >
@@ -109,7 +197,18 @@
     <a-form-item v-bind="formItemLayout" label="Create Username">
       <a-input
         v-model="Username"
-        v-decorator="['username']"
+        v-decorator="[
+          'username',
+          {
+            rules: [
+              {
+                required: true,
+                message: 'Please create Username!',
+                whitespace: true
+              }
+            ]
+          }
+        ]"
         placeholder="Please enter your Username"
       />
     </a-form-item>
@@ -117,7 +216,20 @@
     <a-form-item v-bind="formItemLayout" label="Password">
       <a-input
         v-model="Password"
-        v-decorator="['password']"
+        v-decorator="[
+          'password',
+          {
+            rules: [
+              {
+                required: true,
+                message: 'Please input your password!'
+              },
+              {
+                validator: validateToNextPassword
+              }
+            ]
+          }
+        ]"
         placeholder="Please enter your password"
         type="password"
       />
@@ -125,7 +237,20 @@
 
     <a-form-item v-bind="formItemLayout" label="Confirm Password">
       <a-input
-        v-decorator="['confirm']"
+        v-decorator="[
+          'confirm',
+          {
+            rules: [
+              {
+                required: true,
+                message: 'Please confirm your password!'
+              },
+              {
+                validator: compareToFirstPassword
+              }
+            ]
+          }
+        ]"
         placeholder="Please re-enter your password"
         type="password"
         @blur="handleConfirmBlur"
@@ -141,7 +266,7 @@
       </a-checkbox>
     </a-form-item>
     <a-form-item v-bind="tailFormItemLayout">
-      <a-button type="primary" html-type="submit" @click="create()">
+      <a-button type="primary" html-type="submit">
         Register
       </a-button>
     </a-form-item>
@@ -218,14 +343,15 @@ export default {
           setTimeout(() => this.$router.push("/login"), 600);
         })
         .catch(() => {
+          this.openNotification();
           this.$message.error("Invalid, Plase input the correct one!");
         });
     },
     handleSubmit(e) {
       e.preventDefault();
-      this.form.validateFieldsAndScroll((err, values) => {
+      this.form.validateFieldsAndScroll(err => {
         if (!err) {
-          console.log("Received values of form: ", values);
+          this.create();
         }
       });
     },
@@ -248,16 +374,14 @@ export default {
       }
       callback();
     },
-    handleWebsiteChange(value) {
-      let autoCompleteResult;
-      if (!value) {
-        autoCompleteResult = [];
-      } else {
-        autoCompleteResult = [".com", ".org", ".net"].map(
-          domain => `${value}${domain}`
-        );
-      }
-      this.autoCompleteResult = autoCompleteResult;
+    openNotification() {
+      this.$notification.open({
+        placement: "buttomRight",
+        message: "Your username is already taken.",
+        description:
+          "Please check you username. It not depend on sensitive case.",
+        icon: <a-icon type="frown" style="color: #FF0033	" />
+      });
     }
   }
 };
