@@ -77,7 +77,7 @@ export default new Router({
         {
           path: "/transfer",
           component: () =>
-            import("@/views/authenticated/Transections/Transfer.vue")
+            import("@/views/authenticated/Transections/TransferV2.vue")
         },
         {
           path: "/payment",
@@ -98,6 +98,13 @@ export default new Router({
           path: "/bankaccount",
           component: () =>
             import("@/views/authenticated/Account/BankAccount.vue")
+        },
+        {
+          path: "/checktransfer",
+          component: () =>
+            import(
+              "@/views/authenticated/Transections/Transfer/CheckTransfer.vue"
+            )
         }
       ]
     }
