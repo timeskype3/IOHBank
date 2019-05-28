@@ -1,9 +1,16 @@
 <template>
   <div class="register">
     <a-layout id="components-layout1">
+      <a-layout-header>
+        <img
+          alt="Vue logo"
+          src="../assets/coverwhite.png"
+          height="55"
+          width="55"
+        /> Register
+      </a-layout-header>
       <a-layout-content>
         <a-form :form="form" @submit="handleSubmit">
-          <h1>Register</h1>
           <a-form-item v-bind="formItemLayout" label="Name">
             <a-input
               v-model="FName"
@@ -412,5 +419,11 @@ export default {
   height: 959px;
   min-height: 1000px;
   margin-top: 40px;
+}
+#components-layout1 .ant-layout-header {
+  min-height: 20px;
+  background-image: url("bg-1.jpg");
+  color: #fff;
+  font-size: 30px;
 }
 </style>
