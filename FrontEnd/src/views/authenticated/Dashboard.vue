@@ -38,8 +38,10 @@
         </a-sub-menu>
 
         <a-menu-item key="5">
-          <a-icon type="shop" />
-          <span>Promotion</span>
+          <router-link to="/promotion">
+            <a-icon type="shop" />
+            <span>Promotion</span>
+          </router-link>
         </a-menu-item>
         <a-sub-menu key="sub2">
           <span slot="title"

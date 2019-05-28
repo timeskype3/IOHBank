@@ -88,6 +88,11 @@ export default new Router({
           path: "/top-up",
           component: () =>
             import("@/views/authenticated/Transections/Top-Up.vue")
+        },
+        {
+          path: "/promotion",
+          component: () => 
+            import("@/views/authenticated/Promotion/Promotion.vue")
         }
       ]
     }
