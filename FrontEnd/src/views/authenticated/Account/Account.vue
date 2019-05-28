@@ -15,7 +15,7 @@
           <Profile />
         </p>
         <p v-if="noTitleKey === 'app'">
-          app content
+          <App />
         </p>
         <p v-else-if="noTitleKey === 'project'">
           project content
@@ -27,6 +27,7 @@
 
 <script>
 import Profile from "@/views/authenticated/Account/Profile.vue";
+import App from "@/views/authenticated/Account/App.vue";
 export default {
   components: {
     Profile
