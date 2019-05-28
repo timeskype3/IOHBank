@@ -61,12 +61,12 @@
         <span style="margin-right: 20px;color:#FFD700">
           <a-switch :default-checked="false" /> Show Balance</span
         >
-        <h
+        <span
           style="margin-right: 10px;
                   color:#fff"
         >
           {{ name }} 's Account
-        </h>
+        </span>
         <a-button type="danger" @click="logout()">
           logout
         </a-button>

@@ -14,12 +14,10 @@
         <p v-if="noTitleKey === 'profile'">
           <Profile />
         </p>
-        <p v-if="noTitleKey === 'app'">
-          <App />
+        <p v-if="noTitleKey === 'bankaccount'">
+          <BankAccount />
         </p>
-        <p v-else-if="noTitleKey === 'project'">
-          project content
-        </p>
+        <p v-else-if="noTitleKey === 'project'">project content</p>
       </a-card>
     </div>
   </div>
@@ -27,10 +25,11 @@
 
 <script>
 import Profile from "@/views/authenticated/Account/Profile.vue";
-import App from "@/views/authenticated/Account/App.vue";
+import BankAccount from "@/views/authenticated/Account/BankAccount.vue";
 export default {
   components: {
-    Profile
+    Profile,
+    BankAccount
   },
   data() {
     return {
@@ -40,12 +39,8 @@ export default {
           tab: "Profile"
         },
         {
-          key: "app",
-          tab: "app"
-        },
-        {
-          key: "project",
-          tab: "project"
+          key: "bankaccount",
+          tab: "Bank Account"
         }
       ],
       key: "tab1",

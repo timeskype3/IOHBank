@@ -91,8 +91,13 @@ export default new Router({
         },
         {
           path: "/promotion",
-          component: () => 
+          component: () =>
             import("@/views/authenticated/Promotion/Promotion.vue")
+        },
+        {
+          path: "/bankaccount",
+          component: () =>
+            import("@/views/authenticated/Account/BankAccount.vue")
         }
       ]
     }

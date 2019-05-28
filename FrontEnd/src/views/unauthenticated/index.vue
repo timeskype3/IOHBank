@@ -1,27 +1,27 @@
 <template>
-    <div>
-        <div id="nav">
-            <router-link to="/">Home</router-link> |
-            <router-link to="/login">Login</router-link> |
-            <router-link to="/register">Register</router-link> 
-        </div>
-        <transition
-        name="fade"
-        mode="out-in"
-         @beforeLeave="beforeLeave"
-         @enter="enter"
-         @afterEnter="afterEnter"
-        >
-        <router-view/>
-      </transition>
+  <div>
+    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/login">Login</router-link> |
+      <router-link to="/register">Register</router-link>
     </div>
+    <transition
+      name="fade"
+      mode="out-in"
+      @beforeLeave="beforeLeave"
+      @enter="enter"
+      @afterEnter="afterEnter"
+    >
+      <router-view />
+    </transition>
+  </div>
 </template>
 <script>
 export default {
-  name: 'App',
+  name: "App",
   data() {
     return {
-      prevHeight: 0,
+      prevHeight: 0
     };
   },
   methods: {
@@ -38,10 +38,10 @@ export default {
       });
     },
     afterEnter(element) {
-      element.style.height = 'auto';
-    },
-  },
-}
+      element.style.height = "auto";
+    }
+  }
+};
 </script>
 
 <style>
@@ -60,14 +60,13 @@ export default {
 .fade-enter-active,
 .fade-leave-active {
   transition-duration: 0.5s;
-  transition-property: height, opacity ;
+  transition-property: height, opacity;
   transition-timing-function: ease;
   overflow: hidden;
 }
 
 .fade-enter,
 .fade-leave-active {
-  opacity: 0
+  opacity: 0;
 }
-
 </style>

@@ -40,6 +40,8 @@ app.post('/login', (req,res)=> {
     })
 });
 
+
+
 app.post('/dashboard',verifyToken,(req,res)=>{
     res.json(req.user)
 });
@@ -117,5 +119,9 @@ app.post('/register', (req, res) => {
         }
     ) 
 })
+
+const appAccount = require('./account')
+app.use('/account', appAccount)
+
 
 app.listen(3000,()=>console.log('Connected to port 3000'))

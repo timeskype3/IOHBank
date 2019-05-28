@@ -7,7 +7,8 @@
           src="../assets/coverwhite.png"
           height="55"
           width="55"
-        /> Register
+        />
+        Register
       </a-layout-header>
       <a-layout-content>
         <a-form :form="form" @submit="handleSubmit">
@@ -298,7 +299,6 @@
 import axios from "axios";
 
 export default {
-  name: "RegisterForm",
   data() {
     return {
       FName: "",
@@ -359,7 +359,7 @@ export default {
           Username: this.Username,
           Password: this.Password
         })
-        .then(res => {
+        .then(() => {
           this.$message.success("Create Success!");
           setTimeout(() => this.$router.push("/login"), 600);
         })

@@ -35,7 +35,6 @@
 
       <a-form-item>
         <a-select
-          size="large"
           v-decorator="[
             'account',
             {
@@ -47,6 +46,7 @@
               ]
             }
           ]"
+          size="large"
           style="width:500px"
           placeholder="Select payment account"
         >
