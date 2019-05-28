@@ -4,7 +4,7 @@
       <a-breadcrumb-item>User</a-breadcrumb-item>
       <a-breadcrumb-item>Bill</a-breadcrumb-item>
     </a-breadcrumb>
-    <div :style="{ padding: '24px', background: '#fff', minHeight: '500px' }">
+    <div :style="{ padding: '24px', background: '#fff', minHeight: '400px' }">
       Transfer
       <a-form-item v-bind="formItemLayout" label="Your Account">
             <a-select 
@@ -57,6 +57,10 @@
       <a-form-item v-bind="formItemLayout" label="Note ">
         <a-input placeholder="Enter Your Note"/>
       </a-form-item>
+      <a-button type="primary" html-type="submit" 
+      @click="Next()">
+        Next
+      </a-button>
     </div>
   </div>
 </template>
@@ -64,6 +68,7 @@
 <script>
 import api from "@/utils/api";
 import MyAccount from "@/views/authenticated/Transections/Transfer/MyAccount.vue";
+import axios from "axios";
 
 export default {
   data: () => ({
@@ -93,6 +98,9 @@ export default {
         .finally(() => {
           this.loading = false;
         });
+    },
+    Next() {
+      this.$router.push("/checktransfer");
     }
   }
 };

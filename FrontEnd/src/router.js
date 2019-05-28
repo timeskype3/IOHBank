@@ -93,6 +93,10 @@ export default new Router({
           path: "/promotion",
           component: () => 
             import("@/views/authenticated/Promotion/Promotion.vue")
+        },
+        {
+          path: "/checktransfer",
+          component: () => import("@/views/authenticated/Transections/Transfer/CheckTransfer.vue")
         }
       ]
     }
