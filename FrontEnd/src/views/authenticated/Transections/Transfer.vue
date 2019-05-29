@@ -117,12 +117,20 @@
         >
           <a-input v-model="note" />
         </a-form-item>
-        <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
-          <a-button type="primary" html-type="submit">
-            Submit
-          </a-button>
-          {{ accountID }}
-        </a-form-item>
+        <a-button type="primary" @click="showModal">
+          Next
+        </a-button>
+        <a-modal v-model="visible" title="Title" on-ok="handleOk">
+          <template slot="footer">
+            <a-button key="back" @click="handleCancel">Return</a-button>
+            <a-button key="submit" type="primary" @click="handleSubmit">
+              Submit
+            </a-button>
+          </template>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+        </a-modal>
+        <a-form-item :wrapper-col="{ span: 12, offset: 5 }"> </a-form-item>
       </a-form>
     </div>
   </div>
@@ -139,7 +147,9 @@ export default {
       bank: "IOHBANK",
       profile: {},
       read: {},
-      accountID: {}
+      accountID: {},
+      loading: false,
+      visible: false
     };
   },
   mounted() {
@@ -156,6 +166,13 @@ export default {
       });
   },
   methods: {
+    showModal() {
+      this.visible = true;
+    },
+
+    handleCancel() {
+      this.visible = false;
+    },
     handleSubmit(e) {
       e.preventDefault();
       this.form.validateFields((err, values) => {
@@ -168,6 +185,15 @@ export default {
       console.log(value);
       this.form.setFieldsValue({
         note: `Hi, ${value === "male" ? "man" : "lady"}!`
+      });
+    },
+    openNotification() {
+      this.$notification.open({
+        placement: "buttomRight",
+        message: "Your username is already taken.",
+        description:
+          "Please check you username. It not depend on sensitive case.",
+        icon: <a-icon type="frown" style="color: #FF0033	" />
       });
     }
   }

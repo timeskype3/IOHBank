@@ -41,4 +41,14 @@ app.get('/read/:id',(req, res) => {
     })
 })
 
+app.get('/transfer/read/:id',(req, res) => {
+    conn.query(
+        'SELECT * FROM accountinfo a, clientinfo c WHERE a.clientid = c.clientid AND a.AccountID = ?', [
+        req.params.id
+    ], (err, results) => {
+        if(err) return res.sendStatus(500)
+        res.json(results)
+    })
+})
+
 module.exports = app
