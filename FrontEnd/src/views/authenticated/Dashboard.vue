@@ -33,12 +33,12 @@
               Payment
             </router-link>
           </a-menu-item>
-          <a-menu-item key="4">
+          <!-- <a-menu-item key="4">
             <router-link to="/top-up">
               <a-icon type="upload" />
               Top-Up
             </router-link>
-          </a-menu-item>
+          </a-menu-item> -->
         </a-sub-menu>
 
         <a-menu-item key="5">
@@ -55,10 +55,10 @@
           <a-menu-item key="8">Team 2</a-menu-item>
         </a-sub-menu>
         <a-menu-item key="9">
-           <router-link to="/report">
-          <a-icon type="read" />
-          <span>report</span>
-           </router-link>
+          <router-link to="/report">
+            <a-icon type="read" />
+            <span>report</span>
+          </router-link>
         </a-menu-item>
       </a-menu>
     </a-layout-sider>
