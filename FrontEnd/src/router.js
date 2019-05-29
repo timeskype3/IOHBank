@@ -77,7 +77,7 @@ export default new Router({
         {
           path: "/transfer",
           component: () =>
-            import("@/views/authenticated/Transections/TransferV2.vue")
+            import("@/views/authenticated/Transections/Transfer.vue")
         },
         {
           path: "/payment",
@@ -105,6 +105,11 @@ export default new Router({
             import(
               "@/views/authenticated/Transections/Transfer/CheckTransfer.vue"
             )
+        },
+        {
+          path: "/report",
+          component: () =>
+            import("@/views/report.vue")
         }
       ]
     }

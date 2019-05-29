@@ -51,8 +51,10 @@
           <a-menu-item key="8">Team 2</a-menu-item>
         </a-sub-menu>
         <a-menu-item key="9">
-          <a-icon type="file" />
-          <span>File</span>
+           <router-link to="/report">
+          <a-icon type="read" />
+          <span>report</span>
+           </router-link>
         </a-menu-item>
       </a-menu>
     </a-layout-sider>
