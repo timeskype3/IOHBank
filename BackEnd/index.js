@@ -121,7 +121,10 @@ app.post('/register', (req, res) => {
 })
 
 const appAccount = require('./account')
+const report = require('./report')
+
 app.use('/account', appAccount)
+app.use('/accountcount', report)
 
 
 app.listen(3000,()=>console.log('Connected to port 3000'))

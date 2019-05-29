@@ -105,6 +105,11 @@ export default new Router({
             import(
               "@/views/authenticated/Transections/Transfer/CheckTransfer.vue"
             )
+        },
+        {
+          path: "/report",
+          component: () =>
+            import("@/views/report.vue")
         }
       ]
     }
