@@ -237,11 +237,10 @@ export default {
     },
     SubmitTransfer() {
       this.readM();
-      if (this.readMoney[0].Balance > this.Money) {
+      if (this.readMoney[0].Balance >= this.Money) {
         this.send();
         this.receive();
         this.bill();
-        this.visible = false;
       } else {
         this.$message.error("Sorry, Can't transfer");
         this.openNotification();
@@ -278,6 +277,19 @@ export default {
           this.$message.error("Sorry, Can't get to receive");
         });
     },
+    RePage() {
+      api()
+        .get("/profile")
+        .then(({ data }) => {
+          this.profile = data;
+          api()
+            .get("/account/read/" + this.profile.ClientID)
+            .then(({ data }) => {
+              console.log(data);
+              this.read = data;
+            });
+        });
+    },
     send() {
       axios
         .post("//localhost:3000/account/transfer/send", {
@@ -285,6 +297,7 @@ export default {
           Balance: this.Money
         })
         .then(() => {
+          this.RePage();
           this.$message.success("Send Success!");
         })
         .catch(() => {

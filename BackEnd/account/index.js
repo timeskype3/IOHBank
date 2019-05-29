@@ -86,6 +86,30 @@ app.post('/transfer/bill', (req, res) => {
         }
     ) 
 })
+app.post('/payment/orderbill', (req, res) => {
+    const account = [
+        "AccountID",
+        "PaymentID",
+        "Date",
+        "Memo",
+        "Star"
+    ]
+
+    const values = account.map(account => req.body[account])
+    conn.query(
+        "INSERT INTO orderbill (" + account.join(', ') + ") VALUES (" + '?'.repeat(account.length).split('').join(', ') + ")",
+        values,
+        (err, results) => {
+            if(err){
+                console.log(err)
+                res.sendStatus(406)
+            }else{
+                console.log("Save payment bill")
+                res.sendStatus(201)
+            }
+        }
+    ) 
+})
 
 app.post('/transfer/send', (req, res) => {
     conn.query(
@@ -104,6 +128,7 @@ app.post('/transfer/send', (req, res) => {
     ) 
 })
 
+
 app.post('/transfer/receive', (req, res) => {
     conn.query(
         "UPDATE accountinfo SET Balance = Balance + ? WHERE AccountID = ?",[
@@ -119,6 +144,17 @@ app.post('/transfer/receive', (req, res) => {
             }
         }
     ) 
+})
+
+
+app.get('/payment/:id',(req, res) => {
+    conn.query(
+        "SELECT b.PaymentID , b.CustomerName, b.CustomerAddress, b.Total , b.EXP,b.Type,f.Name, f.Contract FROM billpamentdata b JOIN formalaccount f ON b.FormalAccountID = f.FormalAccountID WHERE b.PaymentID = ?", [
+        req.params.id
+    ], (err, results) => {
+        if(err) return res.sendStatus(500)
+        res.json(results)
+    })
 })
 
 
