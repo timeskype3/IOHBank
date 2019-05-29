@@ -12,30 +12,25 @@
         :active-tab-key="noTitleKey"
         @tabChange="key => onTabChange(key, 'noTitleKey')"
       >
-        <p v-if="noTitleKey === 'food'">
-          <food />rrr
-        </p>
-        <p v-if="noTitleKey === 'lifestyle'">
-          <lifestyle />ttt
-        </p>
+        <p v-if="noTitleKey === 'food'"><food />rrr</p>
+        <p v-if="noTitleKey === 'lifestyle'"><lifestyle />ttt</p>
         <p v-else-if="noTitleKey === 'project'">project content</p>
       </a-card>
     </div>
-
   </div>
 </template>
 
 <script>
-import api from "@/utils/api"; 
-import food from "@/views/authenticated/Promotion/food.vue"
-import lifestyle from "@/views/authenticated/Promotion/lifestyle.vue"
+import api from "@/utils/api";
+import food from "@/views/authenticated/Promotion/food.vue";
+import lifestyle from "@/views/authenticated/Promotion/lifestyle.vue";
 
 export default {
   components: {
     food,
     lifestyle
   },
- data() {
+  data() {
     return {
       tabListNoTitle: [
         {

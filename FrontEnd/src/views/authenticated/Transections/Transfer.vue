@@ -18,7 +18,7 @@
           :wrapper-col="{ span: 12 }"
           style="margin-top:20px"
           ><a-select
-            v-model="accountID"
+            v-model="AccountID"
             v-decorator="[
               'select',
               {
@@ -56,7 +56,6 @@
           label="To Bank"
           :label-col="{ span: 5 }"
           :wrapper-col="{ span: 12 }"
-          :v-model="bank"
         >
           <a-select
             v-decorator="[
@@ -84,7 +83,7 @@
           :wrapper-col="{ span: 12 }"
         >
           <a-input
-            v-model="amount"
+            v-model="AccountIDRecive"
             v-decorator="[
               'toaccount',
               {
@@ -100,7 +99,7 @@
           :wrapper-col="{ span: 12 }"
         >
           <a-input
-            v-model="amount"
+            v-model="Money"
             v-decorator="[
               'Amount',
               {
@@ -115,9 +114,15 @@
           :label-col="{ span: 5 }"
           :wrapper-col="{ span: 12 }"
         >
-          <a-input v-model="note" />
+          <a-input v-model="memo" />
         </a-form-item>
-        <a-button type="primary" @click="showModal">
+        <a-button
+          type="primary"
+          @click="
+            showModal();
+            check();
+          "
+        >
           Next
         </a-button>
         <a-modal v-model="visible" title="Title" on-ok="handleOk">
@@ -127,8 +132,15 @@
               Submit
             </a-button>
           </template>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
+          <template v-if="checkaccount[0]">
+            <p>From</p>
+            <p>{{ profile.FName + " " + profile.LName }}</p>
+            <p>Account ID : {{ AccountID }}</p>
+            <p>To</p>
+            <p>{{ checkaccount[0].FName + " " + checkaccount[0].LName }}</p>
+            <p>Account ID : {{ checkaccount[0].AccountID }}</p>
+            <p>Amount {{ Money }} Baht.</p>
+          </template>
         </a-modal>
         <a-form-item :wrapper-col="{ span: 12, offset: 5 }"> </a-form-item>
       </a-form>
@@ -147,7 +159,10 @@ export default {
       bank: "IOHBANK",
       profile: {},
       read: {},
-      accountID: {},
+      checkaccount: [],
+      AccountID: "",
+      Money: "",
+      AccountIDRecive: "",
       loading: false,
       visible: false
     };
@@ -168,6 +183,13 @@ export default {
   methods: {
     showModal() {
       this.visible = true;
+    },
+    check() {
+      api()
+        .get("/account/transfer/read/" + this.AccountIDRecive)
+        .then(({ data }) => {
+          this.checkaccount = data;
+        });
     },
 
     handleCancel() {
