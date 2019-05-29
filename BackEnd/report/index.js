@@ -177,6 +177,37 @@ app.get('/moneybyaccount', (req, res) => {
         })
 })
 
+app.get('/promotiondate', (req, res) => {
+
+    conn.query(`SELECT *
+    FROM promotion p
+    JOIN freegift f ON p.FreeGiftID = f.FreeGiftID
+    JOIN discount d ON p.DiscountID = d.DiscountID;`,
+        (err, results) => {
+            if (err) return res.status(400).send(String(err))
+            const data = results.map(e => {
+                return {
+                    StartDate: `${e.StartDate.getDate()}-${e.StartDate.getMonth()+1}-${e.StartDate.getFullYear()}`,
+                    EndDate: `${e.EndDate.getDate()}-${e.EndDate.getMonth()+1}-${e.EndDate.getFullYear()}`
+                    
+                }
+            })
+            res.json(data)
+        })
+})
+
+app.get('/promotion', (req, res) => {
+
+    conn.query(`SELECT *
+    FROM promotion p
+    JOIN freegift f ON p.FreeGiftID = f.FreeGiftID
+    JOIN discount d ON p.DiscountID = d.DiscountID;`,
+        (err, results) => {
+            if (err) return res.status(400).send(String(err))
+            res.json(results)
+        })
+})
+
 
 
 
