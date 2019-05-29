@@ -11,61 +11,164 @@
         minHeight: '360px'
       }"
     >
-      <a-steps :current="current">
-        <a-step v-for="item in steps" :key="item.title" :title="item.title" />
-      </a-steps>
+      <a-form :form="form" @submit="handleSubmit">
+        <a-form-item
+          label="From account ID"
+          :label-col="{ span: 5 }"
+          :wrapper-col="{ span: 12 }"
+          style="margin-top:20px"
+          ><a-select
+            v-model="accountID"
+            v-decorator="[
+              'select',
+              {
+                rules: [
+                  { required: true, message: 'Please select your account' }
+                ]
+              }
+            ]"
+            placeholder="Select an account"
+          >
+            <a-select-option
+              v-for="(item, i) in read"
+              :key="i"
+              :value="item.AccountID"
+            >
+              <div style="display:flex !important;">
+                <div style="margin-right:10px;">
+                  {{ item.AccountID }}
+                </div>
+                <div v-if="item.AccountType === 1">
+                  ( Saving )
+                </div>
+                <div v-if="item.AccountType === 2">
+                  ( Fixed )
+                </div>
+                <div v-if="item.AccountType === 3">
+                  ( Current )
+                </div>
+              </div>
+            </a-select-option>
+          </a-select>
+        </a-form-item>
 
-      <div class="steps-content">{{ steps[current].content }}</div>
-      <div class="steps-action">
-        <a-button
-          v-if="current < steps.length - 1"
-          type="primary"
-          @click="next"
+        <a-form-item
+          label="To Bank"
+          :label-col="{ span: 5 }"
+          :wrapper-col="{ span: 12 }"
+          :v-model="bank"
         >
-          Next
-        </a-button>
-        <a-button
-          v-if="current == steps.length - 1"
-          type="primary"
-          @click="$message.success('Processing complete!')"
+          <a-select
+            v-decorator="[
+              'tobank',
+              { initialValue: 'IOHBank' },
+              {
+                rules: [{ message: 'Please select your gender!' }]
+              }
+            ]"
+            placeholder="Select bank"
+            @change="handleSelectChange"
+          >
+            <a-select-option value="IOHBank">
+              IOHBank
+            </a-select-option>
+            <a-select-option value="SCB">
+              SCB
+            </a-select-option>
+          </a-select>
+        </a-form-item>
+
+        <a-form-item
+          label="To account ID"
+          :label-col="{ span: 5 }"
+          :wrapper-col="{ span: 12 }"
         >
-          Done
-        </a-button>
-        <a-button v-if="current > 0" style="margin-left: 8px" @click="prev">
-          Previous
-        </a-button>
-      </div>
+          <a-input
+            v-model="amount"
+            v-decorator="[
+              'toaccount',
+              {
+                rules: [{ required: true, message: 'Please input your note!' }]
+              }
+            ]"
+          />
+        </a-form-item>
+
+        <a-form-item
+          label="Amount"
+          :label-col="{ span: 5 }"
+          :wrapper-col="{ span: 12 }"
+        >
+          <a-input
+            v-model="amount"
+            v-decorator="[
+              'Amount',
+              {
+                rules: [{ required: true, message: 'Please input your note!' }]
+              }
+            ]"
+          />
+        </a-form-item>
+
+        <a-form-item
+          label="Note"
+          :label-col="{ span: 5 }"
+          :wrapper-col="{ span: 12 }"
+        >
+          <a-input v-model="note" />
+        </a-form-item>
+        <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
+          <a-button type="primary" html-type="submit">
+            Submit
+          </a-button>
+          {{ accountID }}
+        </a-form-item>
+      </a-form>
     </div>
   </div>
 </template>
 
 <script>
+import api from "@/utils/api";
+
 export default {
   data() {
     return {
-      current: 0,
-      steps: [
-        {
-          title: "Choose type of transfer",
-          content: "First-content"
-        },
-        {
-          title: "Tranferring",
-          content: "Second-content"
-        },
-        {
-          title: "Verify payment",
-          content: "Last-content"
-        }
-      ]
+      formLayout: "horizontal",
+      form: this.$form.createForm(this),
+      bank: "IOHBANK",
+      profile: {},
+      read: {},
+      accountID: {}
     };
   },
+  mounted() {
+    api()
+      .get("/profile")
+      .then(({ data }) => {
+        this.profile = data;
+        api()
+          .get("/account/read/" + this.profile.ClientID)
+          .then(({ data }) => {
+            console.log(data);
+            this.read = data;
+          });
+      });
+  },
   methods: {
-    next() {
-      this.current++;
+    handleSubmit(e) {
+      e.preventDefault();
+      this.form.validateFields((err, values) => {
+        if (!err) {
+          console.log("Received values of form: ", values);
+        }
+      });
     },
-    prev() {
-      this.current--;
+    handleSelectChange(value) {
+      console.log(value);
+      this.form.setFieldsValue({
+        note: `Hi, ${value === "male" ? "man" : "lady"}!`
+      });
     }
   }
 };

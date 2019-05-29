@@ -77,10 +77,10 @@
           logout
         </a-button>
       </a-layout-header>
-      <a-layout-content style="margin: 0 16px">
+      <a-layout-content style="margin: 0 16px;margin-top:64px;">
         <router-view />
       </a-layout-content>
-      <a-layout-footer style="text-align: center">
+      <a-layout-footer style="text-align: center;">
         InOurHeartBank ©2019
       </a-layout-footer>
     </a-layout>

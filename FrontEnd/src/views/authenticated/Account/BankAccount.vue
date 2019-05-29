@@ -11,13 +11,21 @@
         >AccountType</a-card-grid
       >
       <a-card-grid style="width:25%;textAlign:'center'">
-        {{ item.AccountType }}
+        <div v-if="item.AccountType === 1">
+          Saving
+        </div>
+        <div v-if="item.AccountType === 2">
+          Fixed
+        </div>
+        <div v-if="item.AccountType === 3">
+          Current
+        </div>
       </a-card-grid>
       <a-card-grid style="width:25%;textAlign:'center'">Bank</a-card-grid>
       <a-card-grid style="width:25%;textAlign:'center'">{{
         item.Bank
       }}</a-card-grid>
-      <a-card-grid style="width:25%;textAlign:'center'">Bank :</a-card-grid>
+      <a-card-grid style="width:25%;textAlign:'center'">Balance </a-card-grid>
       <a-card-grid style="width:75%;textAlign:'center'">{{
         item.Balance
       }}</a-card-grid>
