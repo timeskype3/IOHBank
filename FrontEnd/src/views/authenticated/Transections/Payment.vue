@@ -5,15 +5,29 @@
       <a-breadcrumb-item>Bill</a-breadcrumb-item>
     </a-breadcrumb>
     <div :style="{ padding: '24px', background: '#fff', minHeight: '100px' }">
-      Search with invoice No.
+      <p>Search with invoice No.</p>
+      <a-select
+        v-decorator="[
+          'company',
+          {
+            rules: [
+              {
+                required: true,
+                message: 'Please select Company'
+              }
+            ]
+          }
+        ]"
+        size="large"
+        style="width:500px"
+        placeholder="Please select Company"
+      >
+        <a-select-option value="ais"> AIS </a-select-option>
+        <a-select-option value="dtac"> Happy (DTAC) </a-select-option>
+        <a-select-option value="truemove"> TrueMove </a-select-option>
+        <a-select-option value="truemoney"> TrueMoney </a-select-option>
+      </a-select>
     </div>
-    <a-input-search
-      style="width:500px"
-      placeholder="Enter your Invoice No."
-      enter-button="Search"
-      size="large"
-      @search="onSearch"
-    />
   </div>
 </template>
 

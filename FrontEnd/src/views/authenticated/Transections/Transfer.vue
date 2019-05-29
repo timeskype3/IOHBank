@@ -47,6 +47,9 @@
                 <div v-if="item.AccountType === 3">
                   ( Current )
                 </div>
+                <div style="margin-left:10px;">
+                  {{ "  " + item.Balance + "  Baht" }}
+                </div>
               </div>
             </a-select-option>
           </a-select>
@@ -103,7 +106,7 @@
             v-decorator="[
               'Amount',
               {
-                rules: [{ required: true, message: 'Please input your note!' }]
+                rules: [{ required: true, message: 'Please input your money' }]
               }
             ]"
           />
@@ -114,8 +117,9 @@
           :label-col="{ span: 5 }"
           :wrapper-col="{ span: 12 }"
         >
-          <a-input v-model="memo" />
+          <a-input v-model="Memo" />
         </a-form-item>
+
         <a-button
           type="primary"
           @click="
@@ -125,21 +129,36 @@
         >
           Next
         </a-button>
-        <a-modal v-model="visible" title="Title" on-ok="handleOk">
+
+        <a-modal v-model="visible" title="Transaction" on-ok="handleOk">
           <template slot="footer">
-            <a-button key="back" @click="handleCancel">Return</a-button>
+            <a-button key="back" @click="handleCancel">Cancel</a-button>
             <a-button key="submit" type="primary" @click="handleSubmit">
-              Submit
+              Confirm
             </a-button>
           </template>
           <template v-if="checkaccount[0]">
             <p>From</p>
             <p>{{ profile.FName + " " + profile.LName }}</p>
             <p>Account ID : {{ AccountID }}</p>
-            <p>To</p>
-            <p>{{ checkaccount[0].FName + " " + checkaccount[0].LName }}</p>
-            <p>Account ID : {{ checkaccount[0].AccountID }}</p>
-            <p>Amount {{ Money }} Baht.</p>
+            <br />
+            <p>
+              <a-icon
+                type="dollar"
+                style="fontSize:120px;margin-left:30px;"
+              /><a-icon
+                style="fontSize:120px; margin-left:30px;"
+                type="right"
+              />
+            </p>
+            <div style="margin-left:320px;">
+              <p>To</p>
+              <p>{{ checkaccount[0].FName + " " + checkaccount[0].LName }}</p>
+              <p>Account ID : {{ checkaccount[0].AccountID }}</p>
+              <p>Amount {{ Money }} Baht.</p>
+            </div>
+            <a-rate v-model="Star" />
+            <span class="ant-rate-text">{{ Star }} stars</span>
           </template>
         </a-modal>
         <a-form-item :wrapper-col="{ span: 12, offset: 5 }"> </a-form-item>
@@ -150,7 +169,7 @@
 
 <script>
 import api from "@/utils/api";
-
+import axios from "axios";
 export default {
   data() {
     return {
@@ -160,11 +179,15 @@ export default {
       profile: {},
       read: {},
       checkaccount: [],
+      readMoney: [],
       AccountID: "",
       Money: "",
+      Memo: "",
+      Date: new Date(),
       AccountIDRecive: "",
       loading: false,
-      visible: false
+      visible: false,
+      Star: 0
     };
   },
   mounted() {
@@ -180,6 +203,7 @@ export default {
           });
       });
   },
+
   methods: {
     showModal() {
       this.visible = true;
@@ -192,29 +216,88 @@ export default {
         });
     },
 
+    readM() {
+      api()
+        .get("/account/transfer/checkmoney/" + this.AccountID)
+        .then(({ data }) => {
+          this.readMoney = data;
+        });
+    },
+
     handleCancel() {
       this.visible = false;
     },
     handleSubmit(e) {
       e.preventDefault();
-      this.form.validateFields((err, values) => {
+      this.form.validateFields(err => {
         if (!err) {
-          console.log("Received values of form: ", values);
+          this.SubmitTransfer();
         }
       });
     },
-    handleSelectChange(value) {
-      console.log(value);
-      this.form.setFieldsValue({
-        note: `Hi, ${value === "male" ? "man" : "lady"}!`
-      });
+    SubmitTransfer() {
+      this.readM();
+      if (this.readMoney[0].Balance > this.Money) {
+        this.send();
+        this.receive();
+        this.bill();
+        this.visible = false;
+      } else {
+        this.$message.error("Sorry, Can't transfer");
+        this.openNotification();
+      }
     },
+
+    bill() {
+      axios
+        .post("//localhost:3000/account/transfer/bill", {
+          AccountID: this.AccountID,
+          AccountIDRecive: this.AccountIDRecive,
+          Money: this.Money,
+          Date: this.Date,
+          Memo: this.Memo,
+          Star: this.Star
+        })
+        .then(() => {
+          this.$message.success("Transfer Success!");
+        })
+        .catch(() => {
+          this.$message.error("Sorry, Can't transfer");
+        });
+    },
+    receive() {
+      axios
+        .post("//localhost:3000/account/transfer/receive", {
+          AccountID: this.AccountIDRecive,
+          Balance: this.Money
+        })
+        .then(() => {
+          this.$message.success("Receive Success!");
+        })
+        .catch(() => {
+          this.$message.error("Sorry, Can't get to receive");
+        });
+    },
+    send() {
+      axios
+        .post("//localhost:3000/account/transfer/send", {
+          AccountID: this.AccountID,
+          Balance: this.Money
+        })
+        .then(() => {
+          this.$message.success("Send Success!");
+        })
+        .catch(() => {
+          this.$message.error("Sorry, Can't send");
+        });
+    },
+
     openNotification() {
       this.$notification.open({
         placement: "buttomRight",
-        message: "Your username is already taken.",
+        message: "Sorry your money not enough",
         description:
-          "Please check you username. It not depend on sensitive case.",
+          "Your account has insufficient funds for this transaction.",
         icon: <a-icon type="frown" style="color: #FF0033	" />
       });
     }

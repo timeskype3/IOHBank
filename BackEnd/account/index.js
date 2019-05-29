@@ -51,4 +51,75 @@ app.get('/transfer/read/:id',(req, res) => {
     })
 })
 
+app.get('/transfer/checkmoney/:id',(req, res) => {
+    conn.query(
+        'SELECT Balance FROM accountinfo WHERE AccountID = ?', [
+        req.params.id
+    ], (err, results) => {
+        if(err) return res.sendStatus(500)
+        res.json(results)
+    })
+})
+
+app.post('/transfer/bill', (req, res) => {
+    const account = [
+        "AccountID",
+        "AccountIDRecive",
+        "Money",
+        "Date",
+        "Memo",
+        "Star"
+    ]
+
+    const values = account.map(account => req.body[account])
+    conn.query(
+        "INSERT INTO ordertransaction (" + account.join(', ') + ") VALUES (" + '?'.repeat(account.length).split('').join(', ') + ")",
+        values,
+        (err, results) => {
+            if(err){
+                console.log(err)
+                res.sendStatus(406)
+            }else{
+                console.log("Save bill")
+                res.sendStatus(201)
+            }
+        }
+    ) 
+})
+
+app.post('/transfer/send', (req, res) => {
+    conn.query(
+        "UPDATE accountinfo SET Balance = Balance - ? WHERE AccountID = ?",[
+            req.body.Balance,
+            req.body.AccountID,
+        ],(err) => {
+            if(err){
+                console.log(err)
+                res.sendStatus(406)
+            }else{
+                console.log("Send OK")
+                res.sendStatus(200)
+            }
+        }
+    ) 
+})
+
+app.post('/transfer/receive', (req, res) => {
+    conn.query(
+        "UPDATE accountinfo SET Balance = Balance + ? WHERE AccountID = ?",[
+            req.body.Balance,
+            req.body.AccountID,
+        ],(err) => {
+            if(err){
+                console.log(err)
+                res.sendStatus(406)
+            }else{
+                console.log("Recieve OK")
+                res.sendStatus(200)
+            }
+        }
+    ) 
+})
+
+
 module.exports = app
