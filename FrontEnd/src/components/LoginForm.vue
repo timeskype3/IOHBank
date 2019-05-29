@@ -218,7 +218,6 @@ export default {
   background: #3ba0e9;
   color: #fff;
   line-height: 20px;
-
 }
 #components-layout .ant-layout-content {
   margin: 20px 0 0;
