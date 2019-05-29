@@ -1,6 +1,6 @@
 <template>
-  <a-layout id="components-layout-demo-side" style="min-height: 100vh">
-    <a-layout-sider v-model="collapsed" collapsible>
+  <a-layout id="components-layout-demo-side" style="min-height: 100vh;">
+    <a-layout-sider v-model="collapsed" collapsible style="min-height: 100vh;position:fixed;z-index:99999;">
       <div class="logo" />
       <a-avatar :size="64" icon="user" />
       <div v-show="!collapsed" class="username">
@@ -56,8 +56,8 @@
         </a-menu-item>
       </a-menu>
     </a-layout-sider>
-    <a-layout>
-      <a-layout-header style="background: #205072; text-align: right ">
+    <a-layout style="padding-left:200px;">
+      <a-layout-header style="background: #205072; text-align: right;position:fixed;z-index:999999;width: calc(100vw - 200px);">
         <span style="margin-right: 20px;color:#FFD700">
           <a-switch :default-checked="false" /> Show Balance</span
         >

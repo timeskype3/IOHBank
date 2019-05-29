@@ -162,7 +162,7 @@ export default {
             this.showsuc = true;
             this.$message.success("Login Complete !");
             localStorage.setItem("token", res.data.token);
-            setTimeout(() => this.$router.push("/dashboard"), 600);
+            setTimeout(() => this.$router.push("/account"), 600);
           }
         })
         .catch(e => {
@@ -218,6 +218,7 @@ export default {
   background: #3ba0e9;
   color: #fff;
   line-height: 20px;
+
 }
 #components-layout .ant-layout-content {
   margin: 20px 0 0;
