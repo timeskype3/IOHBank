@@ -7,8 +7,30 @@
       :style="{ marginTop: '16px' }"
     >
       <a slot="extra" href="#">More</a>
-      {{ item }}
+      <a-card-grid style="width:25%;textAlign:'center'"
+        >AccountType</a-card-grid
+      >
+      <a-card-grid style="width:25%;textAlign:'center'">
+        <div v-if="item.AccountType === 1">
+          Saving
+        </div>
+        <div v-if="item.AccountType === 2">
+          Fixed
+        </div>
+        <div v-if="item.AccountType === 3">
+          Current
+        </div>
+      </a-card-grid>
+      <a-card-grid style="width:25%;textAlign:'center'">Bank</a-card-grid>
+      <a-card-grid style="width:25%;textAlign:'center'">{{
+        item.Bank
+      }}</a-card-grid>
+      <a-card-grid style="width:25%;textAlign:'center'">Balance </a-card-grid>
+      <a-card-grid style="width:75%;textAlign:'center'">{{
+        item.Balance
+      }}</a-card-grid>
     </a-card>
+
     <br /><br />
     <a-button type="primary" @click="showDrawer">
       <a-icon type="plus" /> Open new Bank Account
@@ -89,7 +111,13 @@
           <a-button :style="{ marginRight: '8px' }" @click="onClose">
             Cancel
           </a-button>
-          <a-button type="primary" @click="Account()">
+          <a-button
+            type="primary"
+            @click="
+              Account();
+              onClose();
+            "
+          >
             Submit
           </a-button>
         </div>
@@ -134,12 +162,7 @@ export default {
       .get("/profile")
       .then(({ data }) => {
         this.profile = data;
-        api()
-          .get("/account/read/" + this.profile.ClientID)
-          .then(({ data }) => {
-            console.log(data);
-            this.read = data;
-          });
+        this.RePage();
       });
   },
   methods: {
@@ -165,6 +188,7 @@ export default {
           Bank: this.Bank
         })
         .then(() => {
+          this.RePage();
           this.$message.success("Create Success!");
         })
         .catch(() => {
@@ -178,6 +202,14 @@ export default {
           this.Account();
         }
       });
+    },
+    RePage() {
+      api()
+        .get("/account/read/" + this.profile.ClientID)
+        .then(({ data }) => {
+          console.log(data);
+          this.read = data;
+        });
     }
   }
 };

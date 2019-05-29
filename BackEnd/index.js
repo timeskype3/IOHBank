@@ -29,7 +29,7 @@ app.post('/login', (req,res)=> {
                 id: results[0].ClientID,
                 name: [results[0].FName, results[0].LName].join(' '),
                 email: results[0].Email,
-            },'CPE231',{expiresIn:'15m'},(err,token)=>{
+            },'CPE231',{expiresIn:'1h'},(err,token)=>{
                 res.json({
                     token
                 });

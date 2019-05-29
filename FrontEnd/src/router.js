@@ -27,7 +27,7 @@ const checkLogin = (to, from, next) => {
     .get("/auth")
     .then(({ status }) => {
       if (status === 200) {
-        next("/dashboard");
+        next("/account");
       }
     })
     .catch(() => {
