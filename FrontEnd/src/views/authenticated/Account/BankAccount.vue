@@ -111,7 +111,13 @@
           <a-button :style="{ marginRight: '8px' }" @click="onClose">
             Cancel
           </a-button>
-          <a-button type="primary" @click="Account()">
+          <a-button
+            type="primary"
+            @click="
+              Account();
+              onClose();
+            "
+          >
             Submit
           </a-button>
         </div>
@@ -156,12 +162,7 @@ export default {
       .get("/profile")
       .then(({ data }) => {
         this.profile = data;
-        api()
-          .get("/account/read/" + this.profile.ClientID)
-          .then(({ data }) => {
-            console.log(data);
-            this.read = data;
-          });
+        this.RePage();
       });
   },
   methods: {
@@ -187,6 +188,7 @@ export default {
           Bank: this.Bank
         })
         .then(() => {
+          this.RePage();
           this.$message.success("Create Success!");
         })
         .catch(() => {
@@ -200,6 +202,14 @@ export default {
           this.Account();
         }
       });
+    },
+    RePage() {
+      api()
+        .get("/account/read/" + this.profile.ClientID)
+        .then(({ data }) => {
+          console.log(data);
+          this.read = data;
+        });
     }
   }
 };
