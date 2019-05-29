@@ -108,8 +108,7 @@ export default new Router({
         },
         {
           path: "/report",
-          component: () =>
-            import("@/views/report.vue")
+          component: () => import("@/views/report.vue")
         }
       ]
     }
