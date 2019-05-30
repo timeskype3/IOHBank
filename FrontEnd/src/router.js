@@ -107,6 +107,13 @@ export default new Router({
             )
         },
         {
+          path: "/food2",
+          component: () =>
+            import(
+              "@/views/authenticated/Promotion/food2.vue"
+            )
+        },
+        {
           path: "/report",
           component: () => import("@/views/report.vue")
         }
