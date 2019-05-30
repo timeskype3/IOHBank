@@ -1,5 +1,5 @@
 <template>
   <div>
-    EIEI
+    Go to Bank in your area
   </div>
 </template>

@@ -51,8 +51,6 @@
           <span slot="title"
             ><a-icon type="setting" /><span>Setting</span></span
           >
-          <a-menu-item key="6">Team 1</a-menu-item>
-          <a-menu-item key="8">Team 2</a-menu-item>
         </a-sub-menu>
         <a-menu-item key="9">
           <router-link to="/report">
