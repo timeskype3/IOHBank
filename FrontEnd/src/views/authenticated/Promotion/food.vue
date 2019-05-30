@@ -54,11 +54,9 @@
 </template>
 <script>
 import api from "@/utils/api";
-import food2 from "@/views/authenticated/Promotion/food2.vue";
+
 export default {
- components : {
-   food2
- },
+ 
   data() {
     return {
      promotion:{},promotiondate:{}
